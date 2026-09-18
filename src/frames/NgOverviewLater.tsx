@@ -89,7 +89,7 @@ type StatusIslandProps = {
 function StatusIsland({ className, type = "new" }: StatusIslandProps) {
   return (
     <div className={className || "bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] w-[365px]"} data-node-id="367:72963">
-      <p className="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="367:72964">
+      <p className="[word-break:break-word] font-['Inter'] font-semibold font-semibold leading-[normal] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="367:72964">
         Status
       </p>
       <div className="content-stretch flex items-center overflow-clip relative shrink-0" data-node-id="367:72965" data-name="Frame">
@@ -357,7 +357,7 @@ export default function NgOverviewLater() {
                     </div>
                     <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full" data-node-id="I367:175710;13261:99967" data-name="Row 1">
                       <div className="content-stretch flex flex-col items-start overflow-clip relative shrink-0 w-full" data-node-id="I367:175710;13261:99728" data-name="row-Total cost">
-                        <div className="[word-break:break-word] content-stretch flex font-['Inter:Semi_Bold'] font-semibold items-center justify-between not-italic overflow-clip relative shrink-0 w-full whitespace-nowrap" data-node-id="I367:175710;13261:99729" data-name="top">
+                        <div className="[word-break:break-word] content-stretch flex font-['Inter'] font-semibold font-semibold items-center justify-between not-italic overflow-clip relative shrink-0 w-full whitespace-nowrap" data-node-id="I367:175710;13261:99729" data-name="top">
                           <p className="leading-[20px] relative shrink-0 text-[11px] text-[color:var(--\(new\)-text\/primary,#131221)]" data-node-id="I367:175710;13261:99730">
                             Frames
                           </p>
@@ -413,7 +413,7 @@ export default function NgOverviewLater() {
               <div className="bg-white content-stretch flex flex-col gap-[10px] items-start overflow-clip py-[10px] relative shrink-0 w-[343px]" data-node-id="367:175749" data-name="pricing">
                 <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-node-id="I367:175749;13261:100659" data-name="Campaign settings">
                   <div className="content-stretch flex gap-[var(--0\,25-rem,4px)] items-center relative shrink-0" data-node-id="I367:175749;13261:100660" data-name="heading">
-                    <div className="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:175749;13261:100661">
+                    <div className="[word-break:break-word] flex flex-col font-['Inter'] font-semibold font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:175749;13261:100661">
                       <p className="leading-[20px]">Pricing</p>
                     </div>
                   </div>
@@ -427,7 +427,7 @@ export default function NgOverviewLater() {
                   <p className="font-['Inter'] font-regular font-normal leading-[20px] relative shrink-0 text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)]" data-node-id="I367:175749;13261:100664">
                     CPM entered
                   </p>
-                  <p className="font-['Inter:Semi_Bold'] font-semibold leading-[normal] relative shrink-0 text-[#121726] text-[22px]" data-node-id="I367:175749;13261:100665">
+                  <p className="font-['Inter'] font-semibold font-semibold leading-[normal] relative shrink-0 text-[#121726] text-[22px]" data-node-id="I367:175749;13261:100665">
                     £10
                   </p>
                 </div>
@@ -436,7 +436,7 @@ export default function NgOverviewLater() {
                     <p className="font-['Inter'] font-medium font-medium relative shrink-0 text-[#9499a8] text-[11px]" data-node-id="I367:175749;13261:100668">
                       Min
                     </p>
-                    <p className="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[#121726] text-[14px]" data-node-id="I367:175749;13261:100669">
+                    <p className="font-['Inter'] font-semibold font-semibold relative shrink-0 text-[#121726] text-[14px]" data-node-id="I367:175749;13261:100669">
                       £10
                     </p>
                   </div>
@@ -444,7 +444,7 @@ export default function NgOverviewLater() {
                     <p className="font-['Inter'] font-medium font-medium relative shrink-0 text-[#9499a8] text-[11px]" data-node-id="I367:175749;13261:100671">
                       Max
                     </p>
-                    <p className="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[#121726] text-[14px]" data-node-id="I367:175749;13261:100672">
+                    <p className="font-['Inter'] font-semibold font-semibold relative shrink-0 text-[#121726] text-[14px]" data-node-id="I367:175749;13261:100672">
                       £11
                     </p>
                   </div>
@@ -452,7 +452,7 @@ export default function NgOverviewLater() {
                     <p className="font-['Inter'] font-medium font-medium relative shrink-0 text-[#9499a8] text-[11px]" data-node-id="I367:175749;13261:100674">
                       Avg
                     </p>
-                    <p className="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[#121726] text-[14px]" data-node-id="I367:175749;13261:100675">
+                    <p className="font-['Inter'] font-semibold font-semibold relative shrink-0 text-[#121726] text-[14px]" data-node-id="I367:175749;13261:100675">
                       £9
                     </p>
                   </div>
@@ -471,7 +471,7 @@ export default function NgOverviewLater() {
                 <div className="bg-white content-stretch flex flex-[1_0_0] flex-col gap-[10px] items-start min-w-px overflow-clip relative" data-node-id="I367:175750;13261:100572" data-name="Distribution">
                   <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-node-id="I367:175750;13261:100574" data-name="Campaign settings">
                     <div className="content-stretch flex gap-[var(--0\,25-rem,4px)] items-center relative shrink-0" data-node-id="I367:175750;13261:100575" data-name="heading">
-                      <div className="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:175750;13261:100576">
+                      <div className="[word-break:break-word] flex flex-col font-['Inter'] font-semibold font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:175750;13261:100576">
                         <p className="leading-[20px]">Distribution</p>
                       </div>
                     </div>
@@ -549,7 +549,7 @@ export default function NgOverviewLater() {
             <div className="border-0 border-[var(--\(new\)-borders\/divider,rgba(19,18,33,0.1))] border-solid content-stretch flex flex-col h-[25px] items-start pb-[5px] relative shrink-0 w-full" data-node-id="I367:175751;7651:18105;7547:45779" data-name="Section title">
               <div className="content-stretch flex flex-col h-[20px] items-start justify-center relative shrink-0 w-full" data-node-id="I367:175751;7651:18105;7547:45779;7543:2379" data-name="Section title">
                 <div className="content-stretch flex items-start justify-between px-[4px] relative shrink-0 w-full" data-node-id="I367:175751;7651:18105;7547:45779;7543:2380" data-name="Heading">
-                  <div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Inter:Semi_Bold'] font-semibold h-[24px] justify-center leading-[0] min-w-px not-italic relative text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)] text-left" data-node-id="I367:175751;7651:18105;7547:45779;7543:2381">
+                  <div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Inter'] font-semibold font-semibold h-[24px] justify-center leading-[0] min-w-px not-italic relative text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)] text-left" data-node-id="I367:175751;7651:18105;7547:45779;7543:2381">
                     <p className="leading-[20px]">Deal line info</p>
                   </div>
                   <div className="content-stretch flex items-center justify-center overflow-clip py-[var(--none,0px)] relative rounded-[var(--iconbutton\/radius\/small,4px)] shrink-0 size-[24px]" data-node-id="I367:175751;7651:18105;7547:45779;7543:2382" data-name="icon button">
@@ -728,7 +728,7 @@ export default function NgOverviewLater() {
             <div className="border-0 border-[var(--\(new\)-borders\/divider,rgba(19,18,33,0.1))] border-solid content-stretch flex flex-col h-[25px] items-start pb-[5px] relative shrink-0 w-full" data-node-id="I367:175751;7651:18294;7547:45779" data-name="Section title">
               <div className="content-stretch flex flex-col h-[20px] items-start justify-center relative shrink-0 w-full" data-node-id="I367:175751;7651:18294;7547:45779;7543:2379" data-name="Section title">
                 <div className="content-stretch flex items-start justify-between px-[4px] relative shrink-0 w-full" data-node-id="I367:175751;7651:18294;7547:45779;7543:2380" data-name="Heading">
-                  <div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Inter:Semi_Bold'] font-semibold h-[24px] justify-center leading-[0] min-w-px not-italic relative text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)] text-left" data-node-id="I367:175751;7651:18294;7547:45779;7543:2381">
+                  <div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Inter'] font-semibold font-semibold h-[24px] justify-center leading-[0] min-w-px not-italic relative text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)] text-left" data-node-id="I367:175751;7651:18294;7547:45779;7543:2381">
                     <p className="leading-[20px]">Filters</p>
                   </div>
                   <div className="content-stretch flex items-center justify-center overflow-clip py-[var(--none,0px)] relative rounded-[var(--iconbutton\/radius\/small,4px)] shrink-0 size-[24px]" data-node-id="I367:175751;7651:18294;7547:45779;7543:2382" data-name="iconButton">

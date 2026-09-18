@@ -304,7 +304,7 @@ export default function NgOverviewCpmStep() {
             <div className="border-0 border-[var(--\(new\)-borders\/divider,rgba(19,18,33,0.1))] border-solid content-stretch flex flex-col h-[25px] items-start pb-[5px] relative shrink-0 w-full" data-node-id="I367:171088;7651:18105;7547:45779" data-name="Section title">
               <div className="content-stretch flex flex-col h-[20px] items-start justify-center relative shrink-0 w-full" data-node-id="I367:171088;7651:18105;7547:45779;7543:2379" data-name="Section title">
                 <div className="content-stretch flex items-start justify-between px-[4px] relative shrink-0 w-full" data-node-id="I367:171088;7651:18105;7547:45779;7543:2380" data-name="Heading">
-                  <div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Inter:Semi_Bold'] font-semibold h-[24px] justify-center leading-[0] min-w-px not-italic relative text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)] text-left" data-node-id="I367:171088;7651:18105;7547:45779;7543:2381">
+                  <div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Inter'] font-semibold font-semibold h-[24px] justify-center leading-[0] min-w-px not-italic relative text-[11px] text-[color:var(--\(new\)-text\/secondary,#42414e)] text-left" data-node-id="I367:171088;7651:18105;7547:45779;7543:2381">
                     <p className="leading-[20px]">Deal line info</p>
                   </div>
                   <div className="content-stretch flex items-center justify-center overflow-clip py-[var(--none,0px)] relative rounded-[var(--iconbutton\/radius\/small,4px)] shrink-0 size-[24px]" data-node-id="I367:171088;7651:18105;7547:45779;7543:2382" data-name="icon button">

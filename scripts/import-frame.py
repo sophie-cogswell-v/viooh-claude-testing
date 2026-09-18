@@ -62,12 +62,26 @@ def main(persisted_path: str, component_name: str, node_id: str):
         text,
     )
 
-    # 4. Fix Figma's font family classes (Inter:Regular etc. don't parse)
-    text = re.sub(
-        r"font-\['Inter:([A-Za-z]+)'\]",
-        lambda m: f"font-['Inter'] font-{m.group(1).lower()}",
-        text,
-    )
+    # 4. Fix Figma's font family classes — Tailwind arbitrary values like
+    # `font-['Inter:Regular']` set font-family to the literal string
+    # "Inter:Regular", which no browser resolves. Also `Semi_Bold` (with
+    # underscore = space in Tailwind syntax) needs remapping.
+    weight_map = {
+        "regular":   "font-normal",
+        "medium":    "font-medium",
+        "semibold":  "font-semibold",
+        "semi_bold": "font-semibold",
+        "bold":      "font-bold",
+        "light":     "font-light",
+        "thin":      "font-thin",
+        "extrabold": "font-extrabold",
+        "black":     "font-black",
+    }
+    def _fix_font(m: re.Match[str]) -> str:
+        weight = m.group(1).lower()
+        cls = weight_map.get(weight, "font-normal")
+        return f"font-['Inter'] {cls}"
+    text = re.sub(r"font-\['Inter:([A-Za-z_]+)'\]", _fix_font, text)
 
     # 5. Discover the top-level function that Figma marked as the default export
     export_m = re.search(r"export default function (\w+)\s*\(", text)

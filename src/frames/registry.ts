@@ -8,10 +8,21 @@ import NgOverviewFrame06 from './NgOverviewFrame06'
 import NgOverviewDspStep from './NgOverviewDspStep'
 import NgOverviewCpmStep from './NgOverviewCpmStep'
 import NgOverviewLater from './NgOverviewLater'
+import NgOverviewPending from './NgOverviewPending'
+import NgOverviewPendingDropdown from './NgOverviewPendingDropdown'
+import NgOverviewLive from './NgOverviewLive'
+import NgOverviewLiveDropdown from './NgOverviewLiveDropdown'
+import NgOverviewRejected from './NgOverviewRejected'
 import NgMapEmpty from './NgMapEmpty'
+import NgMapCampaignExpanded from './NgMapCampaignExpanded'
+import NgMapDealFilled from './NgMapDealFilled'
+import NgMapLive from './NgMapLive'
+import NgMapTerminated from './NgMapTerminated'
 import PgOverviewEmpty from './PgOverviewEmpty'
 import PgOverviewScheduleStep from './PgOverviewScheduleStep'
 import PgOverviewLocationStep from './PgMapLiveDelivery'
+import PgOverviewApproved from './PgOverviewApproved'
+import PgOverviewEnded from './PgOverviewEnded'
 import PgMapEmpty from './PgMapEmpty'
 
 /**
@@ -32,16 +43,23 @@ import PgMapEmpty from './PgMapEmpty'
 // The Next/Prev buttons walk this list; each step keeps its own dealType×view
 // twin resolved by the router below.
 export const STEPS = [
-  'campaign-empty',       // just landed; campaign details visible
-  'campaign-expanded',    // ownership+settings open on top
-  'deal-created',         // drawer switched to Deal line info, no step yet
-  'schedule-step',        // Schedule row open with calendar
-  'environment-step',     // Environment row open with checkboxes
-  'environment-selected', // Airports ticked, still on env step
-  'dsp-step',             // DSP row open with radio list
-  'cpm-step',             // CPM row open with £ input
-  'location-step',        // Data targeting → Location open (PG has more targets)
-  'validating',           // spinner while availability resolves
+  'campaign-empty',        // just landed; campaign details visible
+  'campaign-expanded',     // ownership+settings open on top
+  'deal-created',          // drawer switched to Deal line info, no step yet
+  'schedule-step',         // Schedule row open with calendar
+  'environment-step',      // Environment row open with checkboxes
+  'environment-selected',  // Airports ticked, still on env step
+  'dsp-step',              // DSP row open with radio list
+  'cpm-step',              // CPM row open with £ input
+  'location-step',         // Data targeting → Location open (PG has more targets)
+  'validating',            // spinner while availability resolves
+  'pending',               // status = Pending after Send for approval
+  'pending-dropdown',      // Pending, status dropdown open (Confirm)
+  'approved',              // status = Approved (PG shows Allocation panel)
+  'live',                  // status = Live, Line saved toast
+  'live-dropdown',         // Live, status dropdown open (Terminate)
+  'rejected',              // status = Rejected, drawer disabled
+  'ended',                 // status = Ended, drawer disabled
 ] as const
 export type Step = typeof STEPS[number]
 
@@ -186,6 +204,46 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'overview', step: 'validating', order: 9,
     actions: {},
   },
+  'ng-overview-pending': {
+    id: 'ng-overview-pending',
+    label: 'NG · Pending',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewPending,
+    dealType: 'ng-floor', view: 'overview', step: 'pending', order: 10,
+    actions: {},
+  },
+  'ng-overview-pending-dropdown': {
+    id: 'ng-overview-pending-dropdown',
+    label: 'NG · Pending (dropdown)',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewPendingDropdown,
+    dealType: 'ng-floor', view: 'overview', step: 'pending-dropdown', order: 11,
+    actions: {},
+  },
+  'ng-overview-live': {
+    id: 'ng-overview-live',
+    label: 'NG · Live',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewLive,
+    dealType: 'ng-floor', view: 'overview', step: 'live', order: 12,
+    actions: {},
+  },
+  'ng-overview-live-dropdown': {
+    id: 'ng-overview-live-dropdown',
+    label: 'NG · Live (dropdown)',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewLiveDropdown,
+    dealType: 'ng-floor', view: 'overview', step: 'live-dropdown', order: 13,
+    actions: {},
+  },
+  'ng-overview-rejected': {
+    id: 'ng-overview-rejected',
+    label: 'NG · Rejected',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewRejected,
+    dealType: 'ng-floor', view: 'overview', step: 'rejected', order: 14,
+    actions: {},
+  },
 
   'ng-map-empty': {
     id: 'ng-map-empty',
@@ -193,6 +251,38 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1620, designHeight: 982,
     Component: NgMapEmpty,
     dealType: 'ng-floor', view: 'map', step: 'campaign-empty', order: 0,
+    actions: {},
+  },
+  'ng-map-campaign-expanded': {
+    id: 'ng-map-campaign-expanded',
+    label: 'NG Map · campaign expanded',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapCampaignExpanded,
+    dealType: 'ng-floor', view: 'map', step: 'campaign-expanded', order: 1,
+    actions: {},
+  },
+  'ng-map-deal-filled': {
+    id: 'ng-map-deal-filled',
+    label: 'NG Map · deal filled',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapDealFilled,
+    dealType: 'ng-floor', view: 'map', step: 'validating', order: 9,
+    actions: {},
+  },
+  'ng-map-live': {
+    id: 'ng-map-live',
+    label: 'NG Map · Live',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapLive,
+    dealType: 'ng-floor', view: 'map', step: 'live', order: 12,
+    actions: {},
+  },
+  'ng-map-terminated': {
+    id: 'ng-map-terminated',
+    label: 'NG Map · Terminated',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapTerminated,
+    dealType: 'ng-floor', view: 'map', step: 'rejected', order: 14,
     actions: {},
   },
 
@@ -218,6 +308,22 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1512, designHeight: 982,
     Component: PgOverviewLocationStep,
     dealType: 'pg', view: 'overview', step: 'location-step', order: 7,
+    actions: {},
+  },
+  'pg-overview-approved': {
+    id: 'pg-overview-approved',
+    label: 'PG · Approved (Allocation)',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewApproved,
+    dealType: 'pg', view: 'overview', step: 'approved', order: 12,
+    actions: {},
+  },
+  'pg-overview-ended': {
+    id: 'pg-overview-ended',
+    label: 'PG · Ended',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewEnded,
+    dealType: 'pg', view: 'overview', step: 'ended', order: 16,
     actions: {},
   },
   'pg-map-empty': {
