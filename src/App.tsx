@@ -1,92 +1,110 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import Stage from './Stage'
-import HotspotOverlay from './HotspotOverlay'
-import { FRAMES, frameFor, stageOf } from './frames/registry'
-import type { DealType, FrameId, Hotspot, View } from './types'
+import { useFrameClicks } from './useFrameClicks'
+import {
+  FRAMES,
+  GLOBAL_ACTIONS,
+  STEPS,
+  findFrame,
+  nextStep,
+  prevStep,
+  type Step,
+} from './frames/registry'
+import type { Action, DealType, View } from './types'
 
 export default function App() {
-  const [frameId, setFrameId] = useState<FrameId>('ng-overview-empty')
+  const [step, setStep] = useState<Step>('campaign-empty')
   const [dealType, setDealType] = useState<DealType>('ng-floor')
   const [view, setView] = useState<View>('overview')
-  const [debug, setDebug] = useState(false)
 
-  const frame = FRAMES[frameId]
-  const { Component, designWidth, designHeight, hotspots } = frame
+  const frame = findFrame(dealType, view, step)
+  const { Component, designWidth, designHeight, actions: frameActions } = frame
 
-  function handleHit(h: Hotspot) {
-    // The router keeps you at the same "stage" of the flow when you toggle
-    // deal type or view — so a click on Map from the CPM step lands on the
-    // map version of that stage, not on empty.
-    const stage = stageOf(frameId)
+  // Merge global + frame actions once per frame render
+  const actions = useMemo(
+    () => ({ ...GLOBAL_ACTIONS, ...frameActions }),
+    [frameActions],
+  )
 
-    if (h.setDealType) {
-      setDealType(h.setDealType)
-      setFrameId(frameFor(h.setDealType, view, stage) as FrameId)
-      return
-    }
-    if (h.toggleView) {
-      setView(h.toggleView)
-      setFrameId(frameFor(dealType, h.toggleView, stage) as FrameId)
-      return
-    }
-    if (h.to) setFrameId(h.to)
-  }
+  // ref-callback state so useFrameClicks re-runs once the DOM node mounts
+  const [container, setContainer] = useState<HTMLDivElement | null>(null)
 
-  const frameIds = Object.keys(FRAMES) as FrameId[]
+  const onHit = useCallback(
+    (action: Action) => {
+      if (action.setDealType) {
+        setDealType(action.setDealType)
+        return
+      }
+      if (action.toggleView) {
+        setView(action.toggleView)
+        return
+      }
+      if (action.step === 'next') {
+        setStep((s) => nextStep(s))
+        return
+      }
+      if (action.step === 'prev') {
+        setStep((s) => prevStep(s))
+        return
+      }
+      if (action.toStep) {
+        if ((STEPS as readonly string[]).includes(action.toStep)) {
+          setStep(action.toStep as Step)
+        }
+        return
+      }
+    },
+    [],
+  )
+
+  useFrameClicks(container, actions, onHit)
 
   return (
     <div className="min-h-screen bg-[#F3F3F5]">
-      {/* Floating toolbar */}
+      {/* Floating toolbar — prototype navigation */}
       <div className="fixed top-3 left-3 z-50 flex gap-2 items-center flex-wrap">
         <button
-          onClick={() => setDebug((d) => !d)}
-          className={[
-            'px-3 py-1 rounded-full border text-xs font-medium shadow-sm',
-            debug
-              ? 'border-[#6858F0] bg-[#EFEDFF] text-[#3A28C6]'
-              : 'border-[#E5E8ED] text-[#42414E] bg-white',
-          ].join(' ')}
+          onClick={() => setStep((s) => prevStep(s))}
+          disabled={STEPS.indexOf(step) === 0}
+          className="px-3 py-1 rounded-full border border-[#E5E8ED] bg-white text-xs font-medium text-[#42414E] shadow-sm disabled:opacity-40"
         >
-          {debug ? 'Hide hotspots' : 'Show hotspots'}
+          ← Prev
+        </button>
+        <button
+          onClick={() => setStep((s) => nextStep(s))}
+          disabled={STEPS.indexOf(step) === STEPS.length - 1}
+          className="px-3 py-1 rounded-full border border-[#E5E8ED] bg-white text-xs font-medium text-[#42414E] shadow-sm disabled:opacity-40"
+        >
+          Next →
         </button>
 
         <div className="text-xs text-[#42414E] bg-white border border-[#E5E8ED] px-3 py-1 rounded-full shadow-sm">
-          <strong className="text-[#131221]">{frame.label}</strong>
+          Step <strong className="text-[#131221]">
+            {STEPS.indexOf(step) + 1}/{STEPS.length}
+          </strong>
           <span className="mx-1.5 text-[#C7C5D6]">·</span>
-          {dealType}
+          {step}
           <span className="mx-1.5 text-[#C7C5D6]">·</span>
-          {view}
+          {frame.label}
         </div>
-
-        <label className="text-xs text-[#42414E] bg-white border border-[#E5E8ED] px-2 py-1 rounded-full shadow-sm flex items-center gap-1">
-          Jump to:
-          <select
-            className="bg-transparent focus:outline-none text-[#131221] font-medium"
-            value={frameId}
-            onChange={(e) => setFrameId(e.target.value as FrameId)}
-          >
-            {frameIds.map((id) => (
-              <option key={id} value={id}>{FRAMES[id].label}</option>
-            ))}
-          </select>
-        </label>
 
         <button
           onClick={() => {
-            setFrameId('ng-overview-empty')
+            setStep('campaign-empty')
             setDealType('ng-floor')
             setView('overview')
           }}
-          className="px-3 py-1 rounded-full border border-[#E5E8ED] text-[#42414E] text-xs font-medium shadow-sm bg-white"
+          className="px-3 py-1 rounded-full border border-[#E5E8ED] bg-white text-xs font-medium text-[#42414E] shadow-sm"
         >
           Reset
         </button>
       </div>
 
-      <Stage designWidth={designWidth} designHeight={designHeight}>
-        <Component />
-        <HotspotOverlay hotspots={hotspots} onHit={handleHit} debug={debug} />
-      </Stage>
+      <div ref={setContainer}>
+        <Stage designWidth={designWidth} designHeight={designHeight}>
+          <Component />
+        </Stage>
+      </div>
     </div>
   )
 }
