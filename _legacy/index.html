@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deal Creation — Overview Mode prototype</title>
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app" id="app" data-view="overview" data-deal-type="ng-floor">
+
+  <!-- ============ SIDE NAV ============ -->
+  <aside class="sidenav" aria-label="Primary">
+    <a class="sidenav__brand" href="#" aria-label="VIOOH">
+      <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="27" r="2" fill="currentColor"/></svg>
+    </a>
+    <nav class="sidenav__items">
+      <button class="sidenav__item" title="Campaigns" aria-label="Campaigns"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 10v4l14 5V5L3 10zm14-2l4 2v4l-4 2"/></svg></button>
+      <button class="sidenav__item" title="Deals" aria-label="Deals"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M7 4l10 16M17 4L7 20"/></svg></button>
+      <button class="sidenav__item" title="Reports" aria-label="Reports"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 20V10m5 10V4m5 16v-8m5 8V8"/></svg></button>
+      <button class="sidenav__item" title="Reservations" aria-label="Reservations"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M6 3h10l2 2v16H6zM9 8h6M9 12h6M9 16h4"/></svg></button>
+      <button class="sidenav__item" title="Inventory" aria-label="Inventory"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 8h16v10H4zM8 8V5h8v3"/></svg></button>
+      <button class="sidenav__item" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 8a4 4 0 100 8 4 4 0 000-8z M19 12l2-1-1-2-2 1-1-1-1-2h-2l-1 2-1 1-2-1-1 2 2 1v2l-2 1 1 2 2-1 1 1 1 2h2l1-2 1-1 2 1 1-2-2-1z"/></svg></button>
+      <button class="sidenav__item" title="Account" aria-label="Account"><svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></button>
+    </nav>
+    <div class="sidenav__spacer"></div>
+    <button class="sidenav__item" title="Live" aria-label="Live"><span class="sidenav__dot" aria-hidden="true"></span></button>
+    <button class="sidenav__item" title="Sign out" aria-label="Sign out"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M14 8V5H5v14h9v-3M10 12h11m-3-3l3 3-3 3"/></svg></button>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="topbar__col topbar__col--left">
+        <div class="locale">
+          <span class="locale__flag" aria-hidden="true">🇪🇸</span>
+          <span class="locale__code">ES</span>
+          <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+        </div>
+        <button class="drawer-toggle" id="leftDrawerToggle" title="Toggle campaign panel" aria-label="Toggle campaign panel">
+          <svg viewBox="0 0 20 20" width="18" height="18"><rect x="3" y="4" width="14" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path stroke="currentColor" stroke-width="1.6" d="M8 4v12"/></svg>
+        </button>
+      </div>
+
+      <div class="topbar__col topbar__col--center">
+        <div class="deal-tabs" id="dealTabs" role="tablist" aria-label="Deal lines">
+          <!-- rendered by JS -->
+        </div>
+        <button class="btn btn--ghost btn--sm" id="newDealBtn">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M8 3v10M3 8h10"/></svg>
+          <span class="btn__label">New deal line</span>
+        </button>
+      </div>
+
+      <div class="topbar__col topbar__col--right">
+        <button class="drawer-toggle" id="rightPanelToggle" title="Toggle status panel" aria-label="Toggle status panel">
+          <svg viewBox="0 0 20 20" width="18" height="18"><rect x="3" y="4" width="14" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path stroke="currentColor" stroke-width="1.6" d="M12 4v12"/></svg>
+        </button>
+
+        <div class="view-toggle" role="tablist" aria-label="View mode">
+          <button class="view-toggle__btn is-active" data-view="overview" role="tab" aria-selected="true">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M2 3h4v10H2zM7 3h3v10H7zM11 3h3v10h-3z"/></svg>
+            Overview
+          </button>
+          <button class="view-toggle__btn" data-view="map" role="tab" aria-selected="false">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M2 4l4-1 4 1 4-1v10l-4 1-4-1-4 1zM6 3v10M10 4v10"/></svg>
+            Map
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Legacy switch (floating chip like Figma) -->
+    <div class="legacy-switch">
+      <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M5 6h6l2 2h-6zM5 12h6l2 2h-6zM3 6v8"/></svg>
+      <span>Switch back to legacy deal form</span>
+      <button class="toggle-switch is-on" id="legacyToggle" aria-pressed="true" aria-label="Legacy deal form">
+        <span class="toggle-switch__thumb"></span>
+      </button>
+    </div>
+
+    <!-- Workspace: 3 columns (left drawer / center canvas / right panel) -->
+    <div class="workspace">
+
+      <!-- ============ LEFT DRAWER ============ -->
+      <aside class="drawer drawer--left" id="leftDrawer" data-mode="campaign">
+
+        <!-- Mode: campaign (initial state, no deal line selected) -->
+        <div class="drawer__inner" data-drawer-mode="campaign">
+          <div class="card card--head">
+            <div class="card__row card__row--title">
+              <input class="edit-title" id="campaignName" value="Campaign name" />
+              <button class="icon-btn" title="Edit"><svg viewBox="0 0 16 16" width="14" height="14"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 14l1-4 8-8 3 3-8 8zM10 4l3 3"/></svg></button>
+            </div>
+            <div class="card__row">
+              <span class="row-label">Campaign ID</span>
+              <span class="row-value row-value--brand">123456789 <svg viewBox="0 0 14 14" width="12" height="12"><path fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" d="M4 4V2h8v8h-2M2 4h8v8H2z"/></svg></span>
+            </div>
+            <div class="card__row">
+              <span class="row-label">Created by</span>
+              <span class="row-value row-value--brand">
+                <svg viewBox="0 0 14 14" width="12" height="12"><circle cx="7" cy="5" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M3 12c.8-2 2.4-3 4-3s3.2 1 4 3"/></svg>
+                Sophie.C
+              </span>
+            </div>
+            <div class="card__row">
+              <span class="row-label">Status</span>
+              <span class="row-value">
+                <span class="chip chip--status" id="campaignStatusChip" data-status="new">
+                  <svg viewBox="0 0 14 14" width="11" height="11"><rect x="2" y="3" width="10" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M4 5h6M4 7h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  <span class="chip__label">New</span>
+                  <svg class="chip__chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Deal type switch: only on the campaign screen (before creating a line) -->
+          <div class="card card--tabs">
+            <div class="pill-tabs" id="dealTypeTabs" role="tablist" aria-label="Deal type">
+              <button class="pill-tabs__btn" data-type="ng-floor" role="tab">NG Floor</button>
+              <button class="pill-tabs__btn" data-type="ng-fixed" role="tab">NG Fixed</button>
+              <button class="pill-tabs__btn" data-type="pg" role="tab">PG</button>
+            </div>
+
+            <div class="accordion">
+              <button class="accordion__head" data-target="secCampaign" aria-expanded="true">
+                <span>Campaign details</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="accordion__body" id="secCampaign">
+                <div class="form-row">
+                  <label>Advertiser</label>
+                  <div class="select" data-required-if="pg"><span class="select__value">Optional</span><svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg></div>
+                </div>
+                <div class="form-row">
+                  <label>Brand</label>
+                  <div class="select" data-required-if="pg"><span class="select__value">Optional</span><svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg></div>
+                </div>
+                <div class="form-row">
+                  <label>Product category</label>
+                  <div class="select" data-required-if="pg"><span class="select__value">Optional</span><svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion">
+              <button class="accordion__head" data-target="secOwnership" aria-expanded="false">
+                <span>Ownership &amp; sales</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="accordion__body" id="secOwnership" hidden>
+                <div class="form-row"><label>Agency</label><div class="select"><span class="select__value">Optional</span><svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg></div></div>
+                <div class="form-row"><label>Sales team</label><div class="select"><span class="select__value">Optional</span><svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg></div></div>
+              </div>
+            </div>
+
+            <div class="accordion">
+              <button class="accordion__head" data-target="secSettings" aria-expanded="false">
+                <span>Settings</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="accordion__body" id="secSettings" hidden>
+                <div class="form-row form-row--switch"><label>Sync deal to DSP</label><button class="toggle-switch" aria-pressed="false"><span class="toggle-switch__thumb"></span></button></div>
+                <div class="form-row form-row--switch"><label>Allow creative submission</label><button class="toggle-switch is-on" aria-pressed="true"><span class="toggle-switch__thumb"></span></button></div>
+                <div class="form-row form-row--switch"><label>Apply CPM at deal line</label><button class="toggle-switch is-on" aria-pressed="true"><span class="toggle-switch__thumb"></span></button></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn--full btn--ghost" id="campaignCta">Skip</button>
+        </div>
+
+        <!-- Mode: deal line (after Skip/Continue) -->
+        <div class="drawer__inner" data-drawer-mode="dealline" hidden>
+          <div class="dealline-head">
+            <input class="edit-title" id="dealLineName" value="Deal line 1" />
+            <div class="dealline-head__actions">
+              <button class="icon-btn" title="Duplicate"><svg viewBox="0 0 16 16" width="13" height="13"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M2 11V3.5A1.5 1.5 0 013.5 2H11"/></svg></button>
+              <button class="icon-btn" title="Clear"><svg viewBox="0 0 16 16" width="13" height="13"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 12l7-9 5 3-7 9zM6 5l5 3M2 14h12"/></svg></button>
+              <button class="icon-btn" title="Delete"><svg viewBox="0 0 16 16" width="13" height="13"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M3 5h10l-1 9H4zM6 5V3h4v2M7 8v4M9 8v4"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Deal line info -->
+          <div class="accordion accordion--deep">
+            <button class="accordion__head" data-target="dlInfo" aria-expanded="true">
+              <span>Deal line info</span>
+              <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+            </button>
+            <div class="accordion__body" id="dlInfo">
+              <input class="input" id="dlName" value="Deal line 1" />
+              <button class="field-row" data-step="schedule">
+                <span class="field-row__label"><span class="field-row__icon">📅</span> Schedule</span>
+                <span class="field-row__value" id="fldSchedule">Required</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+              <button class="field-row" data-step="environment">
+                <span class="field-row__label"><span class="field-row__icon">🏢</span> Environment</span>
+                <span class="field-row__value" id="fldEnvironment">Required</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+              <button class="field-row" data-step="dsp">
+                <span class="field-row__label"><span class="field-row__icon">💼</span> DSP</span>
+                <span class="field-row__value" id="fldDsp">Required</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+              <button class="field-row" data-step="cpm">
+                <span class="field-row__label"><span class="field-row__icon">£</span> CPM</span>
+                <span class="field-row__value" id="fldCpm">Required</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Targets (PG only) -->
+          <div class="accordion accordion--deep" data-only-type="pg">
+            <button class="accordion__head" data-target="dlTargets" aria-expanded="true">
+              <span>Targets</span>
+              <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+            </button>
+            <div class="accordion__body" id="dlTargets">
+              <button class="field-row" data-step="budget">
+                <span class="field-row__label"><span class="field-row__icon">£</span> Budget</span>
+                <span class="field-row__value" id="fldBudget">Required</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+              <button class="field-row" data-step="frames">
+                <span class="field-row__label"><span class="field-row__icon">🖼</span> Frame</span>
+                <span class="field-row__value" id="fldFrames">Optional</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+              <button class="field-row" data-step="impressions">
+                <span class="field-row__label"><span class="field-row__icon">👁</span> Impressions</span>
+                <span class="field-row__value" id="fldImpressions">Required</span>
+                <span class="field-row__more">⋮</span>
+              </button>
+              <div class="field-row field-row--muted">
+                <span class="field-row__label"><span class="field-row__icon">%</span> Share of time</span>
+                <span class="field-row__value">Sweep to fill</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion accordion--deep">
+            <button class="accordion__head" data-target="dlFilters" aria-expanded="false">
+              <span>Filters</span>
+              <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+            </button>
+            <div class="accordion__body" id="dlFilters" hidden>
+              <div class="chip-list" id="filterChips"></div>
+              <div class="chip-add">
+                <input type="text" id="newFilter" placeholder="e.g. Country: ES" />
+                <button class="btn btn--ghost btn--sm" id="addFilterBtn">Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion accordion--deep">
+            <button class="accordion__head" data-target="dlData" aria-expanded="false">
+              <span>Data targeting</span>
+              <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+            </button>
+            <div class="accordion__body" id="dlData" hidden>
+              <p class="empty-hint">Add taxonomy, tags, location. (Skipped in this slice.)</p>
+            </div>
+          </div>
+
+          <div class="accordion accordion--deep">
+            <button class="accordion__head" data-target="dlServices" aria-expanded="false">
+              <span>Apply services</span>
+              <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+            </button>
+            <div class="accordion__body" id="dlServices" hidden>
+              <p class="empty-hint">Service catalog. (Skipped in this slice.)</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ============ CENTER CANVAS ============ -->
+      <section class="canvas" id="canvas">
+
+        <!-- Empty state (no deal lines yet) -->
+        <div class="canvas__empty" id="canvasEmpty">
+          <div class="canvas__empty-inner">
+            <svg viewBox="0 0 48 48" width="42" height="42" aria-hidden="true"><rect x="6" y="10" width="36" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path stroke="currentColor" stroke-width="1.4" stroke-linecap="round" d="M14 20h20M14 26h14"/></svg>
+            <p><strong>No deal lines yet.</strong></p>
+            <p class="muted">Fill the campaign panel on the left, then use <em>+ New deal line</em> above to add one.</p>
+          </div>
+        </div>
+
+        <!-- Step panel (opens when clicking a field row) -->
+        <div class="step-panel" id="stepPanel" hidden>
+          <header class="step-panel__head">
+            <span class="step-panel__title" id="stepTitle">Environment</span>
+            <span class="step-panel__meta" id="stepMeta">Deal line 1</span>
+          </header>
+          <div class="step-panel__body" id="stepBody"><!-- rendered by JS --></div>
+          <footer class="step-panel__foot">
+            <button class="btn btn--ghost" id="stepCancel">Cancel</button>
+            <button class="btn btn--primary" id="stepNext">Next</button>
+          </footer>
+        </div>
+
+        <!-- Map layer (only when view=map) -->
+        <div class="map-layer" id="mapLayer">
+          <!-- decorative SVG map with UK outline + labels -->
+          <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#DCE7F1" stroke-width="0.5"/></pattern>
+            </defs>
+            <rect width="800" height="600" fill="#E9F2FA"/>
+            <rect width="800" height="600" fill="url(#mapGrid)"/>
+            <!-- rough UK/Ireland silhouette -->
+            <path fill="#F7FAFC" stroke="#C5D3E0" stroke-width="1" d="M280,90 L340,80 L400,110 L430,180 L470,220 L455,270 L490,310 L470,360 L495,410 L470,460 L420,490 L370,470 L340,420 L305,410 L295,370 L260,350 L245,300 L275,260 L260,220 L285,180 L270,140 Z" />
+            <path fill="#F7FAFC" stroke="#C5D3E0" stroke-width="1" d="M170,340 L215,330 L235,360 L225,410 L195,430 L170,410 L155,380 Z" />
+            <g font-family="Inter, system-ui" fill="#6B7885" font-size="11">
+              <text x="360" y="180">Scotland</text>
+              <text x="380" y="330">United<tspan x="380" dy="12">Kingdom</tspan></text>
+              <text x="330" y="290">Manchester</text>
+              <text x="360" y="360">Birmingham</text>
+              <text x="395" y="415">London</text>
+              <text x="180" y="380">Ireland</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ============ RIGHT PANEL (status / availability / allocation) ============ -->
+      <aside class="drawer drawer--right" id="rightPanel" hidden>
+        <div class="drawer__inner">
+          <div class="status-block">
+            <span class="status-block__label">Status</span>
+            <span class="chip chip--status" id="lineStatusChip" data-status="new">
+              <svg viewBox="0 0 14 14" width="11" height="11"><rect x="2" y="3" width="10" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M4 5h6M4 7h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <span class="chip__label">New</span>
+              <svg class="chip__chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+            </span>
+          </div>
+
+          <div class="segmented" role="tablist" aria-label="Panel scope">
+            <button class="segmented__btn" data-scope="campaign" role="tab">Campaign</button>
+            <button class="segmented__btn is-active" data-scope="dealline" role="tab" aria-selected="true">Deal line</button>
+          </div>
+
+          <div class="stat-section" id="statSection">
+            <!-- Availability (NG + PG before allocation) -->
+            <div class="stat-section__group" data-group="availability">
+              <button class="stat-section__head" aria-expanded="true">
+                <span>Availability</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="stat-section__body">
+                <div class="stat-row" data-only-type="pg,ng-fixed">
+                  <span class="stat-row__label">Total cost</span>
+                  <span class="stat-row__val">2,665</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-row__label">Frames</span>
+                  <span class="stat-row__val">2,665</span>
+                </div>
+                <div class="stat-row stat-row--sub">
+                  <span class="stat-row__label">Available</span>
+                  <span class="stat-row__val stat-row__val--muted">2,665</span>
+                </div>
+                <div class="stat-row" data-only-type="pg,ng-fixed">
+                  <span class="stat-row__label">Impressions</span>
+                  <span class="stat-row__val"></span>
+                </div>
+                <div class="stat-row stat-row--sub" data-only-type="pg,ng-fixed">
+                  <span class="stat-row__label">Available</span>
+                  <span class="stat-row__val stat-row__val--muted">2,665</span>
+                </div>
+              </div>
+              <div class="stat-section__actions">
+                <button class="btn btn--full btn--ghost"><svg viewBox="0 0 14 14" width="12" height="12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M2 3h10M2 7h10M2 11h6"/></svg> Frame list</button>
+                <button class="btn btn--full btn--primary-soft" id="checkAvailBtn">
+                  <svg viewBox="0 0 14 14" width="12" height="12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 7l3 3 7-7"/></svg>
+                  <span data-type-copy>Check availability</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pricing (NG + PG) -->
+            <div class="stat-section__group" data-group="pricing">
+              <button class="stat-section__head" aria-expanded="true">
+                <span>Pricing</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="stat-section__body">
+                <div class="stat-row">
+                  <span class="stat-row__label"><span data-type-copy-pricing>CPM entered</span></span>
+                  <span class="stat-row__val" id="pricingCpm">£10</span>
+                </div>
+                <div class="mini-stats">
+                  <div class="mini-stats__cell"><span>Min</span><strong>£10</strong></div>
+                  <div class="mini-stats__cell"><span>Max</span><strong>£11</strong></div>
+                  <div class="mini-stats__cell"><span>Avg</span><strong>£9</strong></div>
+                </div>
+                <p class="stat-hint">Your CPM is 34% below the average for these frames.</p>
+              </div>
+            </div>
+
+            <!-- Distribution (all types, collapsed by default) -->
+            <div class="stat-section__group" data-group="distribution">
+              <button class="stat-section__head" aria-expanded="false">
+                <span>Distribution</span>
+                <span class="stat-section__inline">3 cities · 480 frames</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="stat-section__body" hidden>
+                <div class="bar-row"><span>London</span><div class="bar"><span style="width:70%"></span></div><em>210</em></div>
+                <div class="bar-row"><span>Manchester</span><div class="bar"><span style="width:45%"></span></div><em>140</em></div>
+                <div class="bar-row"><span>Birmingham</span><div class="bar"><span style="width:30%"></span></div><em>130</em></div>
+              </div>
+            </div>
+
+            <!-- Delivery (only when Live) -->
+            <div class="stat-section__group" data-group="delivery" hidden>
+              <button class="stat-section__head" aria-expanded="true">
+                <span>Delivery</span>
+                <svg class="chev" viewBox="0 0 10 10" width="10" height="10"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 3 3-3"/></svg>
+              </button>
+              <div class="stat-section__body">
+                <div class="stat-row"><span class="stat-row__label">Traded impressions</span><span class="stat-row__val">0</span></div>
+                <div class="stat-row"><span class="stat-row__label">Remaining</span><span class="stat-row__val">10.0M</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
