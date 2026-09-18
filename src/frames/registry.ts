@@ -15,7 +15,15 @@ import NgOverviewLiveDropdown from './NgOverviewLiveDropdown'
 import NgOverviewRejected from './NgOverviewRejected'
 import NgMapEmpty from './NgMapEmpty'
 import NgMapCampaignExpanded from './NgMapCampaignExpanded'
+import NgMapDealCreated from './NgMapDealCreated'
+import NgMapScheduleStep from './NgMapScheduleStep'
+import NgMapEnvironmentStep from './NgMapEnvironmentStep'
+import NgMapDspStep from './NgMapDspStep'
+import NgMapCpmStep from './NgMapCpmStep'
+import NgMapLocationStep from './NgMapLocationStep'
 import NgMapDealFilled from './NgMapDealFilled'
+import NgMapPending from './NgMapPending'
+import NgMapApproved from './NgMapApproved'
 import NgMapLive from './NgMapLive'
 import NgMapTerminated from './NgMapTerminated'
 import PgOverviewEmpty from './PgOverviewEmpty'
@@ -261,6 +269,54 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'map', step: 'campaign-expanded', order: 1,
     actions: {},
   },
+  'ng-map-deal-created': {
+    id: 'ng-map-deal-created',
+    label: 'NG Map · deal created',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapDealCreated,
+    dealType: 'ng-floor', view: 'map', step: 'deal-created', order: 2,
+    actions: {},
+  },
+  'ng-map-schedule-step': {
+    id: 'ng-map-schedule-step',
+    label: 'NG Map · Schedule step',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapScheduleStep,
+    dealType: 'ng-floor', view: 'map', step: 'schedule-step', order: 3,
+    actions: {},
+  },
+  'ng-map-environment-step': {
+    id: 'ng-map-environment-step',
+    label: 'NG Map · Environment step',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapEnvironmentStep,
+    dealType: 'ng-floor', view: 'map', step: 'environment-step', order: 4,
+    actions: {},
+  },
+  'ng-map-dsp-step': {
+    id: 'ng-map-dsp-step',
+    label: 'NG Map · DSP step',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapDspStep,
+    dealType: 'ng-floor', view: 'map', step: 'dsp-step', order: 6,
+    actions: {},
+  },
+  'ng-map-cpm-step': {
+    id: 'ng-map-cpm-step',
+    label: 'NG Map · CPM step',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapCpmStep,
+    dealType: 'ng-floor', view: 'map', step: 'cpm-step', order: 7,
+    actions: {},
+  },
+  'ng-map-location-step': {
+    id: 'ng-map-location-step',
+    label: 'NG Map · Location step',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapLocationStep,
+    dealType: 'ng-floor', view: 'map', step: 'location-step', order: 8,
+    actions: {},
+  },
   'ng-map-deal-filled': {
     id: 'ng-map-deal-filled',
     label: 'NG Map · deal filled',
@@ -269,12 +325,28 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'map', step: 'validating', order: 9,
     actions: {},
   },
+  'ng-map-pending': {
+    id: 'ng-map-pending',
+    label: 'NG Map · Pending',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapPending,
+    dealType: 'ng-floor', view: 'map', step: 'pending', order: 10,
+    actions: {},
+  },
+  'ng-map-approved': {
+    id: 'ng-map-approved',
+    label: 'NG Map · Approved',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapApproved,
+    dealType: 'ng-floor', view: 'map', step: 'approved', order: 12,
+    actions: {},
+  },
   'ng-map-live': {
     id: 'ng-map-live',
     label: 'NG Map · Live',
     designWidth: 1620, designHeight: 982,
     Component: NgMapLive,
-    dealType: 'ng-floor', view: 'map', step: 'live', order: 12,
+    dealType: 'ng-floor', view: 'map', step: 'live', order: 13,
     actions: {},
   },
   'ng-map-terminated': {
