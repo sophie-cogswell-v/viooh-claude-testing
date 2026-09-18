@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deal Creation Flow — Status Prototype</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Decorative side nav, matches the Figma frame chrome -->
+    <nav class="side-nav" aria-hidden="true">
+      <div class="side-nav__logo">O</div>
+      <div class="side-nav__icon"></div>
+      <div class="side-nav__icon"></div>
+      <div class="side-nav__icon"></div>
+      <div class="side-nav__icon"></div>
+      <div class="side-nav__icon"></div>
+      <div class="side-nav__spacer"></div>
+      <div class="side-nav__icon side-nav__icon--user"></div>
+    </nav>
+
+    <div class="main">
+
+      <!-- Top bar -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <strong>Deal Creation Flow</strong>
+          <span class="topbar__scope">prototype slice — 1 deal line · NG · Overview view</span>
+        </div>
+        <div class="view-toggle" role="tablist" aria-label="View mode">
+          <button class="view-toggle__btn is-active" role="tab" aria-selected="true">Overview</button>
+          <button class="view-toggle__btn" role="tab" aria-selected="false" disabled title="Map view — coming in a later prototype slice">Map</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+
+        <!-- Deal line panel -->
+        <section class="panel" id="dealLinePanel">
+          <div class="panel__header">
+            <div>
+              <div class="panel__label">Deal line</div>
+              <input class="deal-name" id="dealName" value="Deal line 1" />
+            </div>
+            <span class="deal-type-badge">NG Fixed</span>
+          </div>
+
+          <div class="status-row">
+            <span class="status-chip" id="statusChip">New</span>
+            <div class="actions-menu" id="actionsMenu">
+              <button class="actions-menu__trigger" id="actionsTrigger">
+                Actions <span class="chev">▾</span>
+              </button>
+              <div class="actions-menu__list" id="actionsList" hidden></div>
+            </div>
+          </div>
+
+          <div class="locked-banner" id="lockedBanner" hidden>
+            This deal line is <strong id="lockedStatusWord">terminated</strong> and can no longer be edited.
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Schedule</label>
+            <div class="field-row">
+              <div class="field">
+                <span class="field__sub">Start</span>
+                <input type="date" id="startDate" value="2026-10-01" />
+              </div>
+              <div class="field">
+                <span class="field__sub">End</span>
+                <input type="date" id="endDate" value="2026-10-31" />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Environment</label>
+            <select id="environment">
+              <option>Desktop</option>
+              <option>Mobile</option>
+              <option>CTV</option>
+              <option>DOOH</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">DSP</label>
+            <select id="dsp">
+              <option>DV360</option>
+              <option>The Trade Desk</option>
+              <option>Xandr</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">CPM</label>
+            <div class="cpm-input">
+              <span>£</span>
+              <input type="number" id="cpm" value="12.50" step="0.10" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Filters</label>
+            <div class="chip-list" id="filterList"></div>
+            <div class="chip-add" id="chipAdd">
+              <input type="text" id="newFilter" placeholder="e.g. Country: ES" />
+              <button id="addFilterBtn">Add</button>
+            </div>
+            <p class="field-hint">
+              Filters (and any other setup here) can be added or removed any time up to and
+              including Live — locks only once the line is Terminated or Ended.
+            </p>
+          </div>
+
+          <div class="sim-group">
+            <div class="field-label">Simulate time passing</div>
+            <button class="sim-btn" id="simStart" disabled>⏱ Start date reached → goes Live</button>
+            <button class="sim-btn" id="simEnd" disabled>⏱ End date reached → Ends</button>
+            <p class="field-hint">These two happen automatically in real life, off the line's own schedule — no one clicks a button for them. Buttons here just let us demo it.</p>
+          </div>
+        </section>
+
+        <!-- Overview panel -->
+        <section class="panel panel--overview">
+          <div class="panel__label">Overview</div>
+          <table class="overview-table">
+            <thead>
+              <tr>
+                <th>Deal line</th>
+                <th>Status</th>
+                <th>Schedule</th>
+                <th>Environment</th>
+                <th>CPM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="ovName">Deal line 1</td>
+                <td><span class="status-chip status-chip--sm" id="ovStatus">New</span></td>
+                <td id="ovSchedule">01/10/2026 – 31/10/2026</td>
+                <td id="ovEnv">Desktop</td>
+                <td id="ovCpm">£12.50</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="panel__label" style="margin-top:28px;">Status history</div>
+          <ol class="timeline" id="timeline"></ol>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
