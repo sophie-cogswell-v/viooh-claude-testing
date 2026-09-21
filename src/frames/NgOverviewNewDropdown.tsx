@@ -873,7 +873,7 @@ export default function NgOverviewNewDropdown() {
           </div>
         </div>
       </div>
-      <div className="absolute border border-[rgba(5,5,38,0.12)] border-solid content-stretch drop-shadow-[0px_3px_2px_rgba(16,16,52,0.06)] flex flex-col gap-[4px] items-start left-0 p-[3px] rounded-[var(--radius\/md,6px)] top-0 w-[163px]" data-node-id="367:175223" data-name="menu list">
+      <div className="absolute border border-[rgba(5,5,38,0.12)] border-solid content-stretch drop-shadow-[0px_3px_2px_rgba(16,16,52,0.06)] flex flex-col gap-[4px] items-start left-0 p-[3px] rounded-[var(--radius\/md,6px)] top-0 w-[163px] menu-pop-in" data-node-id="367:175223" data-name="menu list">
         <div aria-hidden className="absolute bg-[white] inset-0 pointer-events-none rounded-[var(--radius\/md,6px)]" />
         <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="I367:175223;830:16956" data-name="actions-cluster">
           <div className="content-stretch flex gap-[10px] items-center px-[10px] py-[6px] relative rounded-[var(--radius\/sm,4px)] shrink-0 w-full" data-node-id="I367:175223;921:31233" data-name="action menu">

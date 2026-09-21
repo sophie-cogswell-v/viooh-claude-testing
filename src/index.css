@@ -75,3 +75,34 @@ body { margin: 0; -webkit-font-smoothing: antialiased; }
   from { opacity: 0; transform: scale(1.008) translateY(3px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+/* Status dropdown menus ("menu list" nodes pasted from Figma) pop open
+   instead of just appearing with the rest of the frame — the little bit of
+   physicality that reads as "real menu" instead of "next screenshot".
+   Plays once per mount, which lines up with how these frames are swapped in. */
+.menu-pop-in {
+  transform-origin: top right;
+  animation: menu-pop-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes menu-pop-in {
+  from { opacity: 0; transform: scale(0.92) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-pop-in { animation: none; }
+}
+
+/* Hotspot hover affordance (see useFrameClicks) — a thin accent ring + soft
+   glow, so hovering anything actually clickable reads as clickable instead
+   of the prototype feeling like a static image. Deliberately an OUTSET
+   box-shadow, not inset: almost every button/card in these pasted frames
+   has an `aria-hidden` absolutely-positioned fill as a child (Figma's own
+   layering), which paints over an inset shadow and hides it completely.
+   Outset paints outside the border box, past that overlay, every time. */
+.proto-hotspot {
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+  box-shadow:
+    0 0 0 1.5px rgba(75, 55, 232, 0.45),
+    0 2px 10px rgba(75, 55, 232, 0.18);
+}
