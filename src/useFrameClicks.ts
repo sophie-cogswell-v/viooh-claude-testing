@@ -22,14 +22,16 @@ export function useFrameClicks(
 ) {
   useEffect(() => {
     if (!container) return
-    const ids = Object.keys(actions).filter((k) => !k.startsWith('__text:'))
+    const ids: string[] = []
     const textMap: Record<string, Action> = {}
+    const nameMap: Record<string, Action> = {}
     for (const [k, v] of Object.entries(actions)) {
       if (k.startsWith('__text:')) textMap[k.slice(7)] = v
+      else if (k.startsWith('__name:')) nameMap[k.slice(7)] = v
+      else ids.push(k)
     }
     const textLabels = Object.keys(textMap)
-    // Uncomment for click debugging:
-    // console.debug('[useFrameClicks] listening', ids.length, 'ids +', textLabels.length, 'text labels')
+    const nameLabels = Object.keys(nameMap)
 
     /** Own text content of an element — excludes deep descendants */
     const ownText = (el: Element): string =>
@@ -40,46 +42,51 @@ export function useFrameClicks(
         .join(' ')
 
     const handler = (e: MouseEvent) => {
-      let node = e.target as HTMLElement | null
+      const target = e.target as HTMLElement | null
 
-      // First pass — text match on the clicked element's own text,
-      // then walk up looking for a button-like wrapper whose aggregated
-      // text is one of our labels (chip-with-icon patterns wrap the text
-      // in a <p> inside padding-text inside a tab button).
-      let n: HTMLElement | null = node
+      // Pass 1: text match on the clicked element's own text, then walking
+      // up to a wrapper whose aggregated text is a registered label
+      // (labels wrapped inside padding-text inside a tab button, etc.)
+      let n: HTMLElement | null = target
       let walked = 0
       while (n && n !== container && walked < 6) {
         const own = ownText(n)
         if (own && textLabels.includes(own)) {
-          e.preventDefault()
-          e.stopPropagation()
-          onHit(textMap[own])
-          return
+          e.preventDefault(); e.stopPropagation()
+          onHit(textMap[own]); return
         }
-        // For tab buttons: aggregated textContent equals label (icon has no text)
         const agg = n.textContent?.trim() ?? ''
         if (textLabels.includes(agg)) {
-          e.preventDefault()
-          e.stopPropagation()
-          onHit(textMap[agg])
-          return
+          e.preventDefault(); e.stopPropagation()
+          onHit(textMap[agg]); return
         }
         n = n.parentElement
         walked++
       }
 
-      // Second pass — id match walking full ancestors
-      n = node
+      // Pass 2: data-name match. Lets us bind actions to whole classes of
+      // Figma elements — every calendar day (data-name="cal-day"), every
+      // checkbox row, every status chip — without listing per-frame ids.
+      n = target
+      while (n && n !== container) {
+        const name = n.getAttribute?.('data-name')
+        if (name && nameLabels.includes(name)) {
+          e.preventDefault(); e.stopPropagation()
+          onHit(nameMap[name]); return
+        }
+        n = n.parentElement
+      }
+
+      // Pass 3: node id match walking full ancestors
+      n = target
       while (n && n !== container) {
         const nid = n.getAttribute?.('data-node-id')
         if (nid) {
           const segments = nid.startsWith('I') ? nid.slice(1).split(';') : [nid]
           for (const seg of segments) {
             if (ids.includes(seg)) {
-              e.preventDefault()
-              e.stopPropagation()
-              onHit(actions[seg])
-              return
+              e.preventDefault(); e.stopPropagation()
+              onHit(actions[seg]); return
             }
           }
         }

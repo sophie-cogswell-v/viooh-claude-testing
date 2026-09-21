@@ -129,6 +129,13 @@ export const GLOBAL_ACTIONS: Record<string, Action> = {
   [BUDGET_ROW]:      { label: 'Budget row',      toStep: 'location-step' },
   [FRAME_ROW]:       { label: 'Frame row',       toStep: 'location-step' },
   [IMPRESSIONS_ROW]: { label: 'Impressions row', toStep: 'location-step' },
+
+  // Name-based — matches by Figma's data-name attribute. Lets clicks on any
+  // calendar day / checkbox row / status chip / radio row count as an
+  // "advance this step" without listing every per-frame instance id.
+  '__name:cal-day':  { label: 'Calendar day',      step: 'next' },
+  '__name:chip':     { label: 'Status chip',       step: 'next' },
+  '__name:Parent 4': { label: 'Step-panel option', step: 'next' },  // Environment checkbox + DSP radio rows
 }
 
 /**
