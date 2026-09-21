@@ -14,24 +14,34 @@ import type { Action, DealType, View } from './types'
 
 type ViewTransition = { ready: Promise<void>; finished: Promise<void> }
 
+/** True while a view transition is animating — see withViewTransition. */
+let viewTransitionInFlight = false
+
 /**
  * Runs a state update inside the native View Transitions API so a frame
  * swap crossfades instead of hard-cutting (Chrome/Edge only — falls back to
  * a plain update everywhere else, same as before this existed).
  *
- * Clicking through the flow quickly starts a new transition before the last
- * one finishes, which the browser resolves by aborting the previous one —
- * that abort rejects its `ready`/`finished` promises as an unhandled
- * rejection unless we swallow them here.
+ * Starting a new transition while one is still animating makes the browser
+ * abort the first — and that first transition's own update callback can end
+ * up winning the abort race, so the click that fired it appears to do
+ * nothing (confirmed: two clicks ~400ms apart, second one silently
+ * dropped). Rather than fight that timing, we just skip the animation for
+ * any click that lands mid-transition and apply the state change
+ * immediately — never losing an input matters more than every single step
+ * getting a crossfade. The next click after things settle gets the full
+ * animation again.
  */
 function withViewTransition(update: () => void) {
   const supportsVT = 'startViewTransition' in document
-  if (!supportsVT) return update()
+  if (!supportsVT || viewTransitionInFlight) return update()
+  viewTransitionInFlight = true
+  const clear = () => { viewTransitionInFlight = false }
   const transition = (
     document as unknown as { startViewTransition: (cb: () => void) => ViewTransition }
   ).startViewTransition(update)
   transition.ready.catch(() => {})
-  transition.finished.catch(() => {})
+  transition.finished.then(clear, clear)
 }
 
 /** Human-readable label per step, for the nav toolbar. */
@@ -55,6 +65,19 @@ const STEP_LABELS: Record<Step, string> = {
   rejected: 'Rejected',
   terminated: 'Terminated',
   ended: 'Ended',
+}
+
+/**
+ * NG and PG are different products with different data/flows (see
+ * registry.ts step coverage) — easy to lose track of which one you're in
+ * once you're a few steps deep and the segmented control up in the frame
+ * itself has scrolled out of view. Color-coded so it reads at a glance,
+ * not just as text.
+ */
+const DEAL_TYPE_META: Record<DealType, { label: string; color: string }> = {
+  'ng-floor': { label: 'NG Floor', color: '#2EADE4' },
+  'ng-fixed': { label: 'NG Fixed', color: '#0E9F8E' },
+  pg: { label: 'PG', color: '#4B37E8' },
 }
 
 /**
@@ -102,8 +125,19 @@ export default function App() {
 
   useFrameClicks(container, actions, onHit)
 
+  const dealTypeMeta = DEAL_TYPE_META[dealType]
+
   return (
     <div className="min-h-screen bg-[#F3F3F5]">
+      {/* Deal-type accent strip — top of viewport, always visible even when
+          the toolbar/frame chrome is scrolled or covered. Same color as the
+          toolbar badge below, just ambient rather than something you have
+          to read. */}
+      <div
+        className="fixed top-0 inset-x-0 z-50 h-[3px] transition-colors duration-300"
+        style={{ backgroundColor: dealTypeMeta.color }}
+      />
+
       {/* Reset chip — bottom right, subtle. Cmd-click for a hard start over. */}
       <button
         onClick={() =>
@@ -131,6 +165,21 @@ export default function App() {
       {/* Prev/Next toolbar — bottom center. Explicit flow control for demos,
           alongside (not instead of) clicking the real Figma hotspots. */}
       <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 rounded-full border border-[#E5E8ED] bg-white/95 backdrop-blur-sm px-1.5 py-1.5 shadow-[0_8px_24px_rgba(15,14,46,0.10)]">
+        <button
+          onClick={() =>
+            withViewTransition(() => {
+              const order: DealType[] = ['ng-floor', 'ng-fixed', 'pg']
+              setDealType((d) => order[(order.indexOf(d) + 1) % order.length])
+            })
+          }
+          title="Switch deal type (NG Floor / NG Fixed / PG)"
+          className="flex items-center gap-1.5 rounded-full py-1 pl-2.5 pr-2 text-[11px] font-semibold transition-colors hover:brightness-95"
+          style={{ backgroundColor: `${dealTypeMeta.color}1a`, color: dealTypeMeta.color }}
+        >
+          <span className="size-[6px] rounded-full" style={{ backgroundColor: dealTypeMeta.color }} />
+          {dealTypeMeta.label}
+        </button>
+        <div className="h-4 w-px bg-[#E5E3EE]" />
         <button
           onClick={() => withViewTransition(() => setStep((s) => prevStep(s)))}
           disabled={STEPS.indexOf(step) === 0}

@@ -92,6 +92,37 @@ body { margin: 0; -webkit-font-smoothing: antialiased; }
   .menu-pop-in { animation: none; }
 }
 
+/* Loading spinner (the "Checking availability" screens) — Figma exports a
+   single frozen-mid-spin frame of the arc icon (rotate-[74.66deg], a static
+   angle) since it can't bake continuous motion into a static paste. Spin it
+   for real instead of leaving it parked at one angle. */
+.spinner-spin {
+  animation: spinner-spin 900ms linear infinite;
+  transform-origin: center;
+}
+@keyframes spinner-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Skeleton loading rows (Figma's own placeholder-pill design, marked
+   data-name="Rectangle") — a soft pulse so the loading state reads as
+   "fetching" rather than a plain gray screenshot. Staggered per row via
+   nth-child so the whole panel doesn't blink in lockstep. */
+.skeleton-shimmer [data-name="Rectangle"] {
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+.skeleton-shimmer [data-name="Rectangle"]:nth-child(3n+1) { animation-delay: 0ms; }
+.skeleton-shimmer [data-name="Rectangle"]:nth-child(3n+2) { animation-delay: 150ms; }
+.skeleton-shimmer [data-name="Rectangle"]:nth-child(3n)   { animation-delay: 300ms; }
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner-spin { animation: none; }
+  .skeleton-shimmer [data-name="Rectangle"] { animation: none; }
+}
+
 /* Hotspot hover affordance (see useFrameClicks) — a thin accent ring + soft
    glow, so hovering anything actually clickable reads as clickable instead
    of the prototype feeling like a static image. Deliberately an OUTSET

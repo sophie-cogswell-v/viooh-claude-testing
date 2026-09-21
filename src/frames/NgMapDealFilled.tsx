@@ -365,7 +365,7 @@ export default function NgMapDealFilled() {
         <LegacyTogglePill className="bg-[var(--\(new\)-neutral\/solid\/50,white)] border border-[#e5e5eb] border-solid content-stretch drop-shadow-[0px_2px_4px_rgba(18,18,33,0.06)] flex gap-[10px] items-center justify-center px-[14px] py-[8px] relative rounded-[999px] shrink-0 w-full" />
         <StatusIsland className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" />
         <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-node-id="367:168595" data-name="Summary Panel — MASTER">
-          <SummaryPanelSkeletonLoadingState className="content-stretch flex flex-col gap-[10px] items-center relative shrink-0 w-[365px]" />
+          <SummaryPanelSkeletonLoadingState className="skeleton-shimmer content-stretch flex flex-col gap-[10px] items-center relative shrink-0 w-[365px]" />
         </div>
       </div>
       <div className="absolute bg-[var(--\(new\)-neutral\/solid\/50,white)] content-stretch flex items-center justify-between left-[60px] p-[var(--0\,5-rem,8px)] top-[-1px] w-[1559px]" data-node-id="367:168597" data-name="top bav bar header">

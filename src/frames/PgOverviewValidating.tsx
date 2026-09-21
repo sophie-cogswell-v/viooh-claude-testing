@@ -141,7 +141,7 @@ function Spinner({ className, spinner = "1" }: SpinnerProps) {
   return (
     <div className={className || "content-stretch flex flex-col items-center justify-center overflow-clip p-[10px] relative size-[140px]"} id={is3 ? "node-367_73588" : "node-367_73574"}>
       <div className={`relative shrink-0 ${is3 ? "flex items-center justify-center size-[100.773px]" : "size-[82px]"}`} id={is3 ? "node-367_73589" : "node-367_73575"}>
-        <div className={is3 ? "flex-none rotate-[74.66deg]" : "absolute inset-[0_0_-3.66%_0]"}>
+        <div className={is3 ? "flex-none spinner-spin" : "absolute inset-[0_0_-3.66%_0]"}>
           {spinner === "1" && <img alt="" className="block max-w-none size-full" src={imgGroup1739327574} />}
           {is3 && (
             <div className="relative size-[82px]">
