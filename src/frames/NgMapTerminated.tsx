@@ -442,7 +442,7 @@ export default function NgMapTerminated() {
                             <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:170361;7651:18105;7547:43066;8952:91127;814:3321" data-name="parent-content">
                               <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:170361;7651:18105;7547:43066;8952:91127;814:3323" data-name="padding-text">
                                 <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-neutral\/solid\/700,#605f6b)] text-left whitespace-nowrap" data-node-id="I367:170361;7651:18105;7547:43066;8952:91127;814:3324">
-                                  Adforrm
+                                  Adform
                                 </p>
                               </div>
                             </div>
