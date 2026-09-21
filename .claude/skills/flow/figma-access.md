@@ -1,0 +1,70 @@
+# Figma access — verified capabilities
+
+Read before calling any Figma tool. Everything here was verified against the LENS
+file on 2026-09-21. **Do not assume a capability that is not listed.** If you need
+something that is not here, test it in the open and tell the user what you found —
+do not invent an API.
+
+Tool names are prefixed with the Figma MCP server id in this session; the bare
+names below are the stable part.
+
+## Reads (available and verified)
+
+| Tool | Use it for | Notes / gotchas |
+|---|---|---|
+| `whoami` | confirm auth + debug rate limits | returns handle, email, org/team seats. Run first if reads fail or you are throttled. |
+| `get_metadata` | structure of a page/node (ids, types, names, x/y/w/h) | no `nodeId` ⇒ lists top-level pages. Then drill in by page/node id. Big pages return large XML — drill, don't dump. Metadata only; it cannot implement a design. |
+| `get_screenshot` | see a node/page rendered | returns a short-lived PNG URL + curl line (treat the URL like a secret). `maxDimension` caps the long edge (default 1024). Prefer URL+curl over base64 to save tokens; download then read the file. |
+| `get_variable_defs` | resolved variable values for a node | needs a concrete `nodeId`. Returns e.g. `{'color/primary': '#…'}`. |
+| `get_libraries` | which libraries a file uses / can add | returns subscribed + available libraries with `libraryKey`s. This is how the component/variable split in `config.md` was found. |
+| `search_design_system` | find components / variables / styles | see the batch-clamp gotcha below. Fuzzy match, **not** an enumerator. |
+| `get_design_context` | the primary design→code read: reference code + screenshot + asset URLs for a node | **Load the `figma-design-to-code` skill first** (the tool refuses good output otherwise). It returns Figma's own React/Tailwind guess — adapt it to LENS + the target repo; never paste it verbatim. |
+
+### `search_design_system` — the clamp
+
+The server currently **clamps a batch to one query**. Passing
+`queries: [A, B]` processes only A and warns. So: issue **one query per call**, and
+run several calls **in parallel** when you need to cover multiple families. Scope
+with `includeLibraryKeys` (keys in `config.md`) for cleaner results. Empty results
+mean "not found by that term" — inspect what you got before retrying with synonyms.
+
+### Screenshots you want to actually look at
+
+`get_screenshot` → download with the provided curl line to the scratchpad → read
+the PNG file. A whole design-system page can be enormous (the LENS Icons page is
+~8460×11047px); use a modest `maxDimension` and/or screenshot a child node.
+
+## The naming split you will hit (verified)
+
+LENS is not one flat namespace. Assets resolve across libraries by *type*:
+
+- **Components** → *Design System v3 (update)* (current; updated into 2026).
+  Contains primitives (`Button`, `iconButton`, `Input`, `Dropdown`, `Dialog`,
+  `Lists`/`cells`, `toggle-buttons`) **and** product-composed components
+  (`Deal card`, `Objective card`, `Updated Deal creation card`, `Side Panel/Card/*`).
+- **Colour variables** → *VIOOH - Library (legacy)*, under a semantic tree:
+  `Colors/{Brand,Grey,Background,Semantic}/…/{Surface,Border}` with STROKE /
+  SHAPE_FILL / FRAME_FILL scopes.
+- **Text styles** → a `style` search for "text" returns **empty**. LENS carries
+  type as tokens/variables (and a linked Fonts file), not as Figma text styles.
+  Do not expect `get`-style calls to surface a "Body / 13" text style.
+
+Consequence for mapping: a Figma component's *name* (v3), a colour's *variable
+name* (legacy, `Colors/Brand/Primary/Surface`), and DESIGN.md's *code token*
+(`{colors.primary.900}`) are three different strings for related things. See
+`component-mapping.md`.
+
+## Writes — gated and forbidden against LENS
+
+Write tools (`use_figma`, `create_new_file`, `upload_assets`, `generate_diagram`,
+…) require a separate OAuth-authenticated Figma plugin that may not be connected,
+and they need the `figma-use` skill loaded. They are **out of scope for V0.1**.
+Whatever their status: **never** run a write operation against the LENS fileKey.
+If write-back is ever in scope, it targets an explicitly user-named destination
+file only.
+
+## Rate limits
+
+If reads start failing or slowing, run `whoami` to check seat/limits, then back off
+and batch less aggressively. Cache what you have already read (persist findings in
+the experience inventory) instead of re-fetching.
