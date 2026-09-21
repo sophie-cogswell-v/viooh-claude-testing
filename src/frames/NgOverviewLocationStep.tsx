@@ -450,7 +450,7 @@ export default function NgOverviewLocationStep() {
                         <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:171651;7651:18105;7547:43066;7534:10440;749:2194" data-name="parent-content">
                           <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:171651;7651:18105;7547:43066;7534:10440;749:2196" data-name="padding-text">
                             <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-primary\/solid\/700,#272199)] text-left whitespace-nowrap" data-node-id="I367:171651;7651:18105;7547:43066;7534:10440;749:2197">
-                              Adforrm
+                              Adform
                             </p>
                           </div>
                         </div>
