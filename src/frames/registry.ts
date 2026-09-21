@@ -40,6 +40,18 @@ import PgOverviewLocationStep from './PgMapLiveDelivery'
 import PgOverviewApproved from './PgOverviewApproved'
 import PgOverviewEnded from './PgOverviewEnded'
 import PgMapEmpty from './PgMapEmpty'
+import PgOverviewCampaignExpanded from './PgOverviewCampaignExpanded'
+import PgOverviewDealCreated from './PgOverviewDealCreated'
+import PgOverviewEnvironmentStep from './PgOverviewEnvironmentStep'
+import PgOverviewEnvironmentSelected from './PgOverviewEnvironmentSelected'
+import PgOverviewDspStep from './PgOverviewDspStep'
+import PgOverviewCpmStep from './PgOverviewCpmStep'
+import PgOverviewNewDropdown from './PgOverviewNewDropdown'
+import PgOverviewValidating from './PgOverviewValidating'
+import PgOverviewPending from './PgOverviewPending'
+import PgOverviewPendingDropdown from './PgOverviewPendingDropdown'
+import PgOverviewLive from './PgOverviewLive'
+import PgOverviewTerminated from './PgOverviewTerminated'
 
 /**
  * ─────────────────────────────────────────────────────────────
@@ -448,12 +460,60 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'pg', view: 'overview', step: 'campaign-empty', order: 0,
     actions: {},
   },
+  'pg-overview-campaign-expanded': {
+    id: 'pg-overview-campaign-expanded',
+    label: 'PG · campaign expanded',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewCampaignExpanded,
+    dealType: 'pg', view: 'overview', step: 'campaign-expanded', order: 1,
+    actions: {},
+  },
+  'pg-overview-deal-created': {
+    id: 'pg-overview-deal-created',
+    label: 'PG · deal created',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewDealCreated,
+    dealType: 'pg', view: 'overview', step: 'deal-created', order: 2,
+    actions: {},
+  },
   'pg-overview-schedule-step': {
     id: 'pg-overview-schedule-step',
     label: 'PG · Schedule step',
     designWidth: 1512, designHeight: 982,
     Component: PgOverviewScheduleStep,
     dealType: 'pg', view: 'overview', step: 'schedule-step', order: 3,
+    actions: {},
+  },
+  'pg-overview-environment-step': {
+    id: 'pg-overview-environment-step',
+    label: 'PG · Environment step',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewEnvironmentStep,
+    dealType: 'pg', view: 'overview', step: 'environment-step', order: 4,
+    actions: {},
+  },
+  'pg-overview-environment-selected': {
+    id: 'pg-overview-environment-selected',
+    label: 'PG · Airports selected',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewEnvironmentSelected,
+    dealType: 'pg', view: 'overview', step: 'environment-selected', order: 5,
+    actions: {},
+  },
+  'pg-overview-dsp-step': {
+    id: 'pg-overview-dsp-step',
+    label: 'PG · DSP step',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewDspStep,
+    dealType: 'pg', view: 'overview', step: 'dsp-step', order: 6,
+    actions: {},
+  },
+  'pg-overview-cpm-step': {
+    id: 'pg-overview-cpm-step',
+    label: 'PG · CPM step',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewCpmStep,
+    dealType: 'pg', view: 'overview', step: 'cpm-step', order: 7,
     actions: {},
   },
   'pg-overview-location-step': {
@@ -464,12 +524,60 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'pg', view: 'overview', step: 'location-step', order: 7,
     actions: {},
   },
+  'pg-overview-new-dropdown': {
+    id: 'pg-overview-new-dropdown',
+    label: 'PG · New (dropdown)',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewNewDropdown,
+    dealType: 'pg', view: 'overview', step: 'new-dropdown', order: 9,
+    actions: {},
+  },
+  'pg-overview-validating': {
+    id: 'pg-overview-validating',
+    label: 'PG · validating',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewValidating,
+    dealType: 'pg', view: 'overview', step: 'validating', order: 10,
+    actions: {},
+  },
+  'pg-overview-pending': {
+    id: 'pg-overview-pending',
+    label: 'PG · Pending',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewPending,
+    dealType: 'pg', view: 'overview', step: 'pending', order: 11,
+    actions: {},
+  },
+  'pg-overview-pending-dropdown': {
+    id: 'pg-overview-pending-dropdown',
+    label: 'PG · Pending (dropdown)',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewPendingDropdown,
+    dealType: 'pg', view: 'overview', step: 'pending-dropdown', order: 12,
+    actions: {},
+  },
   'pg-overview-approved': {
     id: 'pg-overview-approved',
     label: 'PG · Approved (Allocation)',
     designWidth: 1512, designHeight: 982,
     Component: PgOverviewApproved,
     dealType: 'pg', view: 'overview', step: 'approved', order: 12,
+    actions: {},
+  },
+  'pg-overview-live': {
+    id: 'pg-overview-live',
+    label: 'PG · Live',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewLive,
+    dealType: 'pg', view: 'overview', step: 'live', order: 14,
+    actions: {},
+  },
+  'pg-overview-terminated': {
+    id: 'pg-overview-terminated',
+    label: 'PG · Terminated',
+    designWidth: 1512, designHeight: 982,
+    Component: PgOverviewTerminated,
+    dealType: 'pg', view: 'overview', step: 'terminated', order: 17,
     actions: {},
   },
   'pg-overview-ended': {
