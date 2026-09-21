@@ -52,6 +52,21 @@ import PgOverviewPending from './PgOverviewPending'
 import PgOverviewPendingDropdown from './PgOverviewPendingDropdown'
 import PgOverviewLive from './PgOverviewLive'
 import PgOverviewTerminated from './PgOverviewTerminated'
+import PgMapCampaignExpanded from './PgMapCampaignExpanded'
+import PgMapDealCreated from './PgMapDealCreated'
+import PgMapScheduleStep from './PgMapScheduleStep'
+import PgMapEnvironmentStep from './PgMapEnvironmentStep'
+import PgMapEnvironmentSelected from './PgMapEnvironmentSelected'
+import PgMapDspStep from './PgMapDspStep'
+import PgMapCpmStep from './PgMapCpmStep'
+import PgMapLocationStep from './PgMapLocationStep'
+import PgMapNewDropdown from './PgMapNewDropdown'
+import PgMapPending from './PgMapPending'
+import PgMapPendingDropdown from './PgMapPendingDropdown'
+import PgMapValidating from './PgMapValidating'
+import PgMapApproved from './PgMapApproved'
+import PgMapTerminated from './PgMapTerminated'
+import PgMapEnded from './PgMapEnded'
 
 /**
  * ─────────────────────────────────────────────────────────────
@@ -594,6 +609,126 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1620, designHeight: 982,
     Component: PgMapEmpty,
     dealType: 'pg', view: 'map', step: 'campaign-empty', order: 0,
+    actions: {},
+  },
+  'pg-map-campaign-expanded': {
+    id: 'pg-map-campaign-expanded',
+    label: 'PG Map · campaign expanded',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapCampaignExpanded,
+    dealType: 'pg', view: 'map', step: 'campaign-expanded', order: 1,
+    actions: {},
+  },
+  'pg-map-deal-created': {
+    id: 'pg-map-deal-created',
+    label: 'PG Map · deal created',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapDealCreated,
+    dealType: 'pg', view: 'map', step: 'deal-created', order: 2,
+    actions: {},
+  },
+  'pg-map-schedule-step': {
+    id: 'pg-map-schedule-step',
+    label: 'PG Map · Schedule step',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapScheduleStep,
+    dealType: 'pg', view: 'map', step: 'schedule-step', order: 3,
+    actions: {},
+  },
+  'pg-map-environment-step': {
+    id: 'pg-map-environment-step',
+    label: 'PG Map · Environment step',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapEnvironmentStep,
+    dealType: 'pg', view: 'map', step: 'environment-step', order: 4,
+    actions: {},
+  },
+  'pg-map-environment-selected': {
+    id: 'pg-map-environment-selected',
+    label: 'PG Map · Airports selected',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapEnvironmentSelected,
+    dealType: 'pg', view: 'map', step: 'environment-selected', order: 5,
+    actions: {},
+  },
+  'pg-map-dsp-step': {
+    id: 'pg-map-dsp-step',
+    label: 'PG Map · DSP step',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapDspStep,
+    dealType: 'pg', view: 'map', step: 'dsp-step', order: 6,
+    actions: {},
+  },
+  'pg-map-cpm-step': {
+    id: 'pg-map-cpm-step',
+    label: 'PG Map · CPM step',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapCpmStep,
+    dealType: 'pg', view: 'map', step: 'cpm-step', order: 7,
+    actions: {},
+  },
+  'pg-map-location-step': {
+    id: 'pg-map-location-step',
+    label: 'PG Map · Location step',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapLocationStep,
+    dealType: 'pg', view: 'map', step: 'location-step', order: 8,
+    actions: {},
+  },
+  'pg-map-new-dropdown': {
+    id: 'pg-map-new-dropdown',
+    label: 'PG Map · New (dropdown)',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapNewDropdown,
+    dealType: 'pg', view: 'map', step: 'new-dropdown', order: 9,
+    actions: {},
+  },
+  'pg-map-validating': {
+    id: 'pg-map-validating',
+    label: 'PG Map · validating',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapValidating,
+    dealType: 'pg', view: 'map', step: 'validating', order: 10,
+    actions: {},
+  },
+  'pg-map-pending': {
+    id: 'pg-map-pending',
+    label: 'PG Map · Pending',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapPending,
+    dealType: 'pg', view: 'map', step: 'pending', order: 11,
+    actions: {},
+  },
+  'pg-map-pending-dropdown': {
+    id: 'pg-map-pending-dropdown',
+    label: 'PG Map · Pending (dropdown)',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapPendingDropdown,
+    dealType: 'pg', view: 'map', step: 'pending-dropdown', order: 12,
+    actions: {},
+  },
+  'pg-map-approved': {
+    id: 'pg-map-approved',
+    label: 'PG Map · Approved',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapApproved,
+    dealType: 'pg', view: 'map', step: 'approved', order: 13,
+    actions: {},
+  },
+  'pg-map-terminated': {
+    id: 'pg-map-terminated',
+    label: 'PG Map · Terminated',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapTerminated,
+    dealType: 'pg', view: 'map', step: 'terminated', order: 17,
+    actions: {},
+  },
+  'pg-map-ended': {
+    id: 'pg-map-ended',
+    label: 'PG Map · Ended',
+    designWidth: 1620, designHeight: 982,
+    Component: PgMapEnded,
+    dealType: 'pg', view: 'map', step: 'ended', order: 18,
     actions: {},
   },
 }
