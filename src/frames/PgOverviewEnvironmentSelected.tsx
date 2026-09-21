@@ -681,7 +681,7 @@ export default function PgOverviewEnvironmentSelected() {
         </div>
       </div>
       <div className="absolute contents left-[677px] top-[215px]" data-node-id="367:185806">
-        <div className="absolute bg-[#fdfdfd] content-stretch flex flex-col h-[478px] items-center left-[678px] rounded-[8px] top-[216px] w-[427px]" data-node-id="367:185807" data-name="secondary panel (base)">
+        <div className="absolute bg-[#fdfdfd] content-stretch flex flex-col h-[478px] items-center left-[678px] rounded-[8px] top-[216px] w-[427px] panel-pop-in" data-node-id="367:185807" data-name="secondary panel (base)">
           <div className="border-[var(--divider,rgba(66,65,78,0.1))] border-b border-solid content-stretch flex items-center justify-between p-[12px] relative shrink-0 w-full" data-node-id="I367:185807;3552:23172" data-name="secondary panel (base)">
             <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[156px]" data-node-id="I367:185807;3552:23172;3563:11111">
               <div className="[word-break:break-word] flex flex-col font-['Inter'] font-medium font-medium justify-end leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:185807;3552:23172;3552:23070">
