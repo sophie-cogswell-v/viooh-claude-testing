@@ -449,8 +449,12 @@ export const FRAMES: Record<string, FrameEntry> = {
     id: 'ng-map-terminated',
     label: 'NG Map · Terminated',
     designWidth: 1620, designHeight: 982,
+    // Was registered under step 'rejected' pre-dating this session, but its
+    // actual rendered chip says "Terminated" (verified against its own
+    // text) — same class of bug as the old ng-map-approved mislabel. NG Map
+    // has no genuine "Rejected" frame yet (Overview does: ng-overview-rejected).
     Component: NgMapTerminated,
-    dealType: 'ng-floor', view: 'map', step: 'rejected', order: 14,
+    dealType: 'ng-floor', view: 'map', step: 'terminated', order: 14,
     actions: {},
   },
   'ng-map-ended': {
