@@ -87,6 +87,16 @@ Scaffolding:
   engineering. Reuse DESIGN.md primitives.
 - **Icons**: LENS icons are Phosphor-based (180, mirrored to `src/assets/icon`).
   Prefer the repo's existing icon assets / a Phosphor package over redrawing.
+- **Assets — download, never hotlink.** `get_design_context` returns icons/images
+  as remote `https://www.figma.com/api/mcp/asset/...` URLs. These are short-lived
+  (they expire in ~7 days) **and** they break in the browser under a burst of icon
+  loads even while they still curl `200`, so a prototype that keeps them renders a
+  field of broken-image placeholders. Always **download every referenced asset into
+  a served folder** (e.g. `public/figma-assets/`) and rewrite each frame's
+  `assetPathPrefix` to that local path, as a standard step right after generating
+  the frames — never ship the `api/mcp/asset` URLs. Filenames are stable per icon
+  across frames, so a shared folder keyed by filename de-duplicates them. See the
+  `localize-assets.mjs` pattern in `component-mapping.md`.
 - **Fidelity**: build to DESIGN.md tokens — spacing (`{spacing}` for page rhythm
   vs `{componentSpacing}` inside components), radii, shadows, type roles, motion.
   Follow DESIGN.md's composition rules (e.g. a set value is always a chip; the map

@@ -82,3 +82,52 @@ For a flow of any size, keep a mapping table in the experience inventory
 
 The table is the audit trail for every CREATE and the lookup that stops the next
 screen minting a second copy of the same thing.
+
+## Two helper scripts every design-to-code prototype wants
+
+`get_design_context` output is large and its assets are remote and fragile, so a
+prototype keeps two tiny scripts under `scripts/`. They are the difference between
+a prototype that renders and one that shows broken icons a week later.
+
+**`import-frame.mjs`** — turn a saved `get_design_context` result into a frame
+component without re-reading it into context. Big results are saved to a file by
+the server; point this at that file:
+
+```js
+// node scripts/import-frame.mjs <tool-result.json|.txt> <ComponentName>
+import fs from 'fs'
+const [, , src, name] = process.argv
+const arr = JSON.parse(fs.readFileSync(src, 'utf8'))
+let code = (arr.find?.(e => (e.text || '').includes('export default function'))?.text) || ''
+code = code.replace(/export default function\s+\w+\s*\(/, `export default function ${name}(`)
+code = code.replace(/font-\['Inter:[^']*'\]\s*/g, '') // invalid family class; real weight class stays
+fs.mkdirSync('src/frames', { recursive: true })
+fs.writeFileSync(`src/frames/${name}.tsx`, code)
+```
+
+**`localize-assets.mjs`** — download every remote Figma asset the frames reference
+and repoint `assetPathPrefix` at the local folder. Run it after importing frames
+and any time you add a screen:
+
+```js
+// node scripts/localize-assets.mjs  → fills public/figma-assets/, rewrites prefixes to "/figma-assets"
+import fs from 'fs'; import path from 'path'
+const dir = 'src/frames', out = 'public/figma-assets'; fs.mkdirSync(out, { recursive: true })
+const files = fs.readdirSync(dir).filter(f => f.endsWith('.tsx'))
+const urls = new Map()
+for (const f of files) {
+  const s = fs.readFileSync(path.join(dir, f), 'utf8')
+  const pre = s.match(/const assetPathPrefix = "([^"]+)"/)?.[1]; if (!pre) continue
+  for (const m of s.matchAll(/\$\{assetPathPrefix\}\/([\w.-]+)`/g)) urls.set(m[1], `${pre}/${m[1]}`)
+}
+for (const [n, u] of urls) if (!fs.existsSync(path.join(out, n))) {
+  const r = await fetch(u); if (r.ok) fs.writeFileSync(path.join(out, n), Buffer.from(await r.arrayBuffer()))
+}
+for (const f of files) fs.writeFileSync(path.join(dir, f),
+  fs.readFileSync(path.join(dir, f), 'utf8').replace(/const assetPathPrefix = "[^"]+"/, 'const assetPathPrefix = "/figma-assets"'))
+```
+
+Two Figma-to-code gotchas both scripts encode: strip the `font-['Inter:…']` family
+class the export carries (it names an invalid family and, left in, overrides the
+real Inter with a serif fallback — the accompanying `font-medium`/`font-normal`
+weight class is what actually matters), and never leave assets on remote URLs.

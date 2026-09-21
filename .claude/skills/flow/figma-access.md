@@ -34,6 +34,24 @@ mean "not found by that term" — inspect what you got before retrying with syno
 the PNG file. A whole design-system page can be enormous (the LENS Icons page is
 ~8460×11047px); use a modest `maxDimension` and/or screenshot a child node.
 
+## Prototype assets — download, never hotlink (verified the hard way)
+
+`get_design_context` returns every icon/image as a remote
+`https://www.figma.com/api/mcp/asset/<prefix>/<file>.svg` URL. **Do not ship these
+in a prototype.** They are short-lived (they expire ~7 days) and, worse, they fail
+to render in the browser under a burst of many icon loads *even while the same URL
+still returns `200` to `curl`* — the symptom is every icon showing a broken-image
+placeholder. Always download the referenced assets into a served folder
+(`public/figma-assets/`) and rewrite each frame's `assetPathPrefix` to that local
+path, as a routine step after generating frames. Asset filenames are stable per
+icon across frames, so a single folder keyed by filename de-duplicates the whole
+set (~60 files for a 13-screen flow). The `component-mapping.md` note carries the
+`localize-assets.mjs` recipe.
+
+When a `get_design_context` result is too large to return inline, the server saves
+it to a file and returns the path — extract the code from that file with a script
+(`import-frame.mjs` pattern) instead of re-reading it into context.
+
 ## The naming split you will hit (verified)
 
 LENS is not one flat namespace. Assets resolve across libraries by *type*:
