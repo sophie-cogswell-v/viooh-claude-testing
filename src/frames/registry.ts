@@ -26,6 +26,14 @@ import NgMapPending from './NgMapPending'
 import NgMapApproved from './NgMapApproved'
 import NgMapLive from './NgMapLive'
 import NgMapTerminated from './NgMapTerminated'
+import NgOverviewLocationStep from './NgOverviewLocationStep'
+import NgOverviewNewDropdown from './NgOverviewNewDropdown'
+import NgMapNewDropdown from './NgMapNewDropdown'
+import NgOverviewTerminated from './NgOverviewTerminated'
+import NgOverviewEnded from './NgOverviewEnded'
+import NgMapEnded from './NgMapEnded'
+import NgMapLiveDropdown from './NgMapLiveDropdown'
+import NgMapEnvironmentSelected from './NgMapEnvironmentSelected'
 import PgOverviewEmpty from './PgOverviewEmpty'
 import PgOverviewScheduleStep from './PgOverviewScheduleStep'
 import PgOverviewLocationStep from './PgMapLiveDelivery'
@@ -60,6 +68,7 @@ export const STEPS = [
   'dsp-step',              // DSP row open with radio list
   'cpm-step',              // CPM row open with £ input
   'location-step',         // Data targeting → Location open (PG has more targets)
+  'new-dropdown',          // status = New, dropdown open (Send for approval / Confirm)
   'validating',            // spinner while availability resolves
   'pending',               // status = Pending after Send for approval
   'pending-dropdown',      // Pending, status dropdown open (Confirm)
@@ -67,6 +76,7 @@ export const STEPS = [
   'live',                  // status = Live, Line saved toast
   'live-dropdown',         // Live, status dropdown open (Terminate)
   'rejected',              // status = Rejected, drawer disabled
+  'terminated',            // status = Terminated (Live → Terminate result), drawer disabled
   'ended',                 // status = Ended, drawer disabled
 ] as const
 export type Step = typeof STEPS[number]
@@ -211,6 +221,22 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'overview', step: 'cpm-step', order: 7,
     actions: {},
   },
+  'ng-overview-location-step': {
+    id: 'ng-overview-location-step',
+    label: 'NG · Location step',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewLocationStep,
+    dealType: 'ng-floor', view: 'overview', step: 'location-step', order: 8,
+    actions: {},
+  },
+  'ng-overview-new-dropdown': {
+    id: 'ng-overview-new-dropdown',
+    label: 'NG · New (dropdown)',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewNewDropdown,
+    dealType: 'ng-floor', view: 'overview', step: 'new-dropdown', order: 9,
+    actions: {},
+  },
   'ng-overview-validating': {
     id: 'ng-overview-validating',
     label: 'NG · validating',
@@ -260,6 +286,23 @@ export const FRAMES: Record<string, FrameEntry> = {
     actions: {},
   },
 
+  'ng-overview-terminated': {
+    id: 'ng-overview-terminated',
+    label: 'NG · Terminated',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewTerminated,
+    dealType: 'ng-floor', view: 'overview', step: 'terminated', order: 17,
+    actions: {},
+  },
+  'ng-overview-ended': {
+    id: 'ng-overview-ended',
+    label: 'NG · Ended',
+    designWidth: 1512, designHeight: 982,
+    Component: NgOverviewEnded,
+    dealType: 'ng-floor', view: 'overview', step: 'ended', order: 18,
+    actions: {},
+  },
+
   'ng-map-empty': {
     id: 'ng-map-empty',
     label: 'NG Map · empty campaign',
@@ -300,6 +343,14 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'map', step: 'environment-step', order: 4,
     actions: {},
   },
+  'ng-map-environment-selected': {
+    id: 'ng-map-environment-selected',
+    label: 'NG Map · Airports selected',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapEnvironmentSelected,
+    dealType: 'ng-floor', view: 'map', step: 'environment-selected', order: 5,
+    actions: {},
+  },
   'ng-map-dsp-step': {
     id: 'ng-map-dsp-step',
     label: 'NG Map · DSP step',
@@ -322,6 +373,14 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1620, designHeight: 982,
     Component: NgMapLocationStep,
     dealType: 'ng-floor', view: 'map', step: 'location-step', order: 8,
+    actions: {},
+  },
+  'ng-map-new-dropdown': {
+    id: 'ng-map-new-dropdown',
+    label: 'NG Map · New (dropdown)',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapNewDropdown,
+    dealType: 'ng-floor', view: 'map', step: 'new-dropdown', order: 9,
     actions: {},
   },
   'ng-map-deal-filled': {
@@ -356,12 +415,28 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'map', step: 'live', order: 13,
     actions: {},
   },
+  'ng-map-live-dropdown': {
+    id: 'ng-map-live-dropdown',
+    label: 'NG Map · Live (dropdown)',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapLiveDropdown,
+    dealType: 'ng-floor', view: 'map', step: 'live-dropdown', order: 15,
+    actions: {},
+  },
   'ng-map-terminated': {
     id: 'ng-map-terminated',
     label: 'NG Map · Terminated',
     designWidth: 1620, designHeight: 982,
     Component: NgMapTerminated,
     dealType: 'ng-floor', view: 'map', step: 'rejected', order: 14,
+    actions: {},
+  },
+  'ng-map-ended': {
+    id: 'ng-map-ended',
+    label: 'NG Map · Ended',
+    designWidth: 1620, designHeight: 982,
+    Component: NgMapEnded,
+    dealType: 'ng-floor', view: 'map', step: 'ended', order: 18,
     actions: {},
   },
 
