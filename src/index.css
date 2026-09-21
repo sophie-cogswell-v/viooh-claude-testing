@@ -54,3 +54,24 @@
 
 html, body, #root { height: 100%; }
 body { margin: 0; -webkit-font-smoothing: antialiased; }
+
+/* Frame-swap crossfade (see withViewTransition in App.tsx). Subtle — a quick
+   fade + tiny scale/lift, not a slide-show cut and not a flashy effect. */
+::view-transition-group(stage) { animation-duration: 240ms; }
+::view-transition-old(stage),
+::view-transition-new(stage) {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
+}
+::view-transition-old(stage) { animation-name: stage-out; }
+::view-transition-new(stage) { animation-name: stage-in; }
+
+@keyframes stage-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.99); }
+}
+@keyframes stage-in {
+  from { opacity: 0; transform: scale(1.008) translateY(3px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

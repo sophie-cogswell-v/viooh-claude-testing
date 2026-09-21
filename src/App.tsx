@@ -12,6 +12,28 @@ import {
 } from './frames/registry'
 import type { Action, DealType, View } from './types'
 
+type ViewTransition = { ready: Promise<void>; finished: Promise<void> }
+
+/**
+ * Runs a state update inside the native View Transitions API so a frame
+ * swap crossfades instead of hard-cutting (Chrome/Edge only — falls back to
+ * a plain update everywhere else, same as before this existed).
+ *
+ * Clicking through the flow quickly starts a new transition before the last
+ * one finishes, which the browser resolves by aborting the previous one —
+ * that abort rejects its `ready`/`finished` promises as an unhandled
+ * rejection unless we swallow them here.
+ */
+function withViewTransition(update: () => void) {
+  const supportsVT = 'startViewTransition' in document
+  if (!supportsVT) return update()
+  const transition = (
+    document as unknown as { startViewTransition: (cb: () => void) => ViewTransition }
+  ).startViewTransition(update)
+  transition.ready.catch(() => {})
+  transition.finished.catch(() => {})
+}
+
 /**
  * The prototype shell. On purpose there's no visible Prev/Next toolbar —
  * navigation is meant to come from clicking the actual buttons Figma drew.
@@ -43,12 +65,12 @@ export default function App() {
   )
 
   const onHit = useCallback((action: Action) => {
-    if (action.setDealType) return setDealType(action.setDealType)
-    if (action.toggleView) return setView(action.toggleView)
-    if (action.step === 'next') return setStep((s) => nextStep(s))
-    if (action.step === 'prev') return setStep((s) => prevStep(s))
+    if (action.setDealType) return withViewTransition(() => setDealType(action.setDealType!))
+    if (action.toggleView) return withViewTransition(() => setView(action.toggleView!))
+    if (action.step === 'next') return withViewTransition(() => setStep((s) => nextStep(s)))
+    if (action.step === 'prev') return withViewTransition(() => setStep((s) => prevStep(s)))
     if (action.toStep && (STEPS as readonly string[]).includes(action.toStep)) {
-      return setStep(action.toStep as Step)
+      return withViewTransition(() => setStep(action.toStep as Step))
     }
   }, [])
 
@@ -58,11 +80,13 @@ export default function App() {
     <div className="min-h-screen bg-[#F3F3F5]">
       {/* Reset chip — bottom right, subtle. Cmd-click for a hard start over. */}
       <button
-        onClick={() => {
-          setStep('campaign-empty')
-          setDealType('ng-floor')
-          setView('overview')
-        }}
+        onClick={() =>
+          withViewTransition(() => {
+            setStep('campaign-empty')
+            setDealType('ng-floor')
+            setView('overview')
+          })
+        }
         title="Restart prototype from step 1"
         className="fixed bottom-3 right-3 z-50 px-3 py-1.5 rounded-full border border-[#E5E8ED] bg-white text-[11px] font-medium text-[#42414E] shadow-sm hover:border-[#6858F0] hover:text-[#4B37E8]"
       >
@@ -78,7 +102,7 @@ export default function App() {
         </div>
       )}
 
-      <div ref={setContainer}>
+      <div ref={setContainer} style={{ viewTransitionName: 'stage' }}>
         <Stage designWidth={designWidth} designHeight={designHeight}>
           <Component />
         </Stage>
