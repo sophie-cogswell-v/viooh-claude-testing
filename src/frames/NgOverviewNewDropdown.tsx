@@ -873,7 +873,7 @@ export default function NgOverviewNewDropdown() {
           </div>
         </div>
       </div>
-      <div className="absolute border border-[rgba(5,5,38,0.12)] border-solid content-stretch drop-shadow-[0px_3px_2px_rgba(16,16,52,0.06)] flex flex-col gap-[4px] items-start left-0 p-[3px] rounded-[var(--radius\/md,6px)] top-0 w-[163px] menu-pop-in" data-node-id="367:175223" data-name="menu list">
+      <div className="absolute border border-[rgba(5,5,38,0.12)] border-solid content-stretch drop-shadow-[0px_3px_2px_rgba(16,16,52,0.06)] flex flex-col gap-[4px] items-start left-[1325px] p-[3px] rounded-[var(--radius\/md,6px)] top-[139px] w-[163px] menu-pop-in" data-node-id="367:175223" data-name="menu list">
         <div aria-hidden className="absolute bg-[white] inset-0 pointer-events-none rounded-[var(--radius\/md,6px)]" />
         <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="I367:175223;830:16956" data-name="actions-cluster">
           <div className="content-stretch flex gap-[10px] items-center px-[10px] py-[6px] relative rounded-[var(--radius\/sm,4px)] shrink-0 w-full" data-node-id="I367:175223;921:31233" data-name="action menu">
@@ -889,7 +889,7 @@ export default function NgOverviewNewDropdown() {
         </div>
         <div className="absolute inset-[-1px] pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(16,16,52,0.08)]" />
       </div>
-      <div className="absolute bg-[rgba(255,255,255,0)] content-stretch flex flex-col items-start left-0 rounded-[25px] shadow-[2px_0px_6px_0px_rgba(0,0,0,0.15)] size-[50px] top-0" data-node-id="367:175224" data-name="Pendo">
+      <div className="absolute bg-[rgba(255,255,255,0)] content-stretch flex flex-col items-start left-[1438px] rounded-[25px] shadow-[2px_0px_6px_0px_rgba(0,0,0,0.15)] size-[50px] top-[909px]" data-node-id="367:175224" data-name="Pendo">
         <div className="content-stretch flex flex-col items-start max-w-[50px] overflow-clip relative rounded-[999px] shrink-0 size-[50px]" data-node-id="I367:175224;9595:93819" data-name="guide-media-bd5ccd85-dcae-4e60-a1db-e7e941ad08ae">
           <div className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 size-[50px]" data-node-id="I367:175224;9595:93820" data-name="guide-media-bd5ccd85-dcae-4e60-a1db-e7e941ad08ae fill">
             <div className="overflow-clip relative shrink-0 size-[50px]" data-node-id="I367:175224;9595:93821" data-name="guide-media-bd5ccd85-dcae-4e60-a1db-e7e941ad08ae">
