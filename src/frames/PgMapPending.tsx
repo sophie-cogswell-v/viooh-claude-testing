@@ -976,7 +976,7 @@ export default function PgMapPending() {
                         </div>
                         <div className="bg-[var(--\(new\)-primary\/solid\/700,#272199)] content-stretch flex h-full items-center px-[var(--chip\/padding\/medium,6px)] relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="I367:182130;7651:18294;7547:3713;7534:10440;749:2198" data-name="child-content">
                           <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:182130;7651:18294;7547:3713;7534:10440;749:2199" data-name="padding-text">
-                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--neutral.solidColor,#f9fafe)] text-left whitespace-nowrap" data-node-id="I367:182130;7651:18294;7547:3713;7534:10440;749:2200">
+                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#f9fafe] text-left whitespace-nowrap" data-node-id="I367:182130;7651:18294;7547:3713;7534:10440;749:2200">
                               Digital CPI
                             </p>
                           </div>
@@ -1017,7 +1017,7 @@ export default function PgMapPending() {
                         </div>
                         <div className="bg-[var(--\(new\)-primary\/solid\/700,#272199)] content-stretch flex h-full items-center px-[var(--chip\/padding\/medium,6px)] relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="I367:182130;7651:18294;7547:43523;7534:10440;749:2198" data-name="child-content">
                           <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:182130;7651:18294;7547:43523;7534:10440;749:2199" data-name="padding-text">
-                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--neutral.solidColor,#f9fafe)] text-left whitespace-nowrap" data-node-id="I367:182130;7651:18294;7547:43523;7534:10440;749:2200">
+                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#f9fafe] text-left whitespace-nowrap" data-node-id="I367:182130;7651:18294;7547:43523;7534:10440;749:2200">
                               Massachusetts
                             </p>
                           </div>

@@ -199,7 +199,7 @@ export default function PrgDealCreationFlow() {
                     <div className="relative shrink-0 size-[16px]" data-node-id="I367:170702;769:15135" data-name="icon">
                       <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon3} />
                     </div>
-                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.secondary,#42414e)] whitespace-nowrap" data-node-id="I367:170702;769:15103">
+                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#42414e] whitespace-nowrap" data-node-id="I367:170702;769:15103">
                       Map
                     </p>
                   </div>

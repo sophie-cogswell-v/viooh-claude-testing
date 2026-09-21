@@ -23,7 +23,6 @@ import NgMapCpmStep from './NgMapCpmStep'
 import NgMapLocationStep from './NgMapLocationStep'
 import NgMapDealFilled from './NgMapDealFilled'
 import NgMapPending from './NgMapPending'
-import NgMapApproved from './NgMapApproved'
 import NgMapLive from './NgMapLive'
 import NgMapTerminated from './NgMapTerminated'
 import NgOverviewLocationStep from './NgOverviewLocationStep'
@@ -422,16 +421,12 @@ export const FRAMES: Record<string, FrameEntry> = {
     id: 'ng-map-pending',
     label: 'NG Map · Pending',
     designWidth: 1620, designHeight: 982,
+    // node 367:169735 — was mislabeled "Approved" pre-dating this session; its
+    // actual content (verified against the rendered chip/button text) is
+    // Pending + Confirm, and NG has no distinct Approved status (see
+    // NgOverviewApproved being absent too), so this is the correct home for it.
     Component: NgMapPending,
     dealType: 'ng-floor', view: 'map', step: 'pending', order: 10,
-    actions: {},
-  },
-  'ng-map-approved': {
-    id: 'ng-map-approved',
-    label: 'NG Map · Approved',
-    designWidth: 1620, designHeight: 982,
-    Component: NgMapApproved,
-    dealType: 'ng-floor', view: 'map', step: 'approved', order: 12,
     actions: {},
   },
   'ng-map-live': {

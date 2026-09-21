@@ -281,7 +281,7 @@ export default function PgOverviewScheduleStep() {
                     <div className="relative shrink-0 size-[16px]" data-node-id="I367:184220;769:15135" data-name="icon">
                       <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon4} />
                     </div>
-                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.secondary,#42414e)] whitespace-nowrap" data-node-id="I367:184220;769:15103">
+                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#42414e] whitespace-nowrap" data-node-id="I367:184220;769:15103">
                       Map
                     </p>
                   </div>
@@ -699,7 +699,7 @@ export default function PgOverviewScheduleStep() {
         </div>
       </div>
       <div className="absolute contents left-[677px] top-[179px]" data-node-id="367:184224">
-        <div className="absolute bg-[var(--background.body,#fdfdfd)] border border-[var(--neutral.outlinedBorder,rgba(5,5,38,0.12))] border-solid content-stretch flex flex-col h-[722px] items-center left-[678px] rounded-[8px] top-[180px] w-[427px]" data-node-id="367:184225" data-name="secondary panel (base)">
+        <div className="absolute bg-[#fdfdfd] border border-[rgba(5,5,38,0.12)] border-solid content-stretch flex flex-col h-[722px] items-center left-[678px] rounded-[8px] top-[180px] w-[427px]" data-node-id="367:184225" data-name="secondary panel (base)">
           <div className="border-[var(--divider,rgba(66,65,78,0.1))] border-b border-solid content-stretch flex items-center justify-between p-[12px] relative shrink-0 w-full" data-node-id="I367:184225;3552:23172" data-name="secondary panel (base)">
             <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[156px]" data-node-id="I367:184225;3552:23172;3563:11111">
               <div className="[word-break:break-word] flex flex-col font-['Inter'] font-medium font-medium justify-end leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:184225;3552:23172;3552:23070">
@@ -707,7 +707,7 @@ export default function PgOverviewScheduleStep() {
               </div>
             </div>
             <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-node-id="I367:184225;3552:23172;3552:23080">
-              <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.tiertiary,#7c7b87)] text-right whitespace-nowrap" data-node-id="I367:184225;3552:23172;3552:23074">
+              <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#7c7b87] text-right whitespace-nowrap" data-node-id="I367:184225;3552:23172;3552:23074">
                 Deal line 1
               </p>
             </div>
@@ -759,10 +759,10 @@ export default function PgOverviewScheduleStep() {
                   <div className="content-stretch flex flex-[1_0_0] flex-col h-[60px] items-start min-w-px relative rounded-[12px]" data-node-id="367:184241" data-name="Calendar">
                     <div className="content-stretch flex items-start justify-center relative shrink-0 w-full" data-node-id="367:184242" data-name="Inputs">
                       <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--0\,5-rem,8px)] h-[60px] items-start justify-center min-w-px relative" data-node-id="367:184243" data-name="_TimeframeInput">
-                        <div className="border border-[var(--neutral.outlinedBorder,rgba(5,5,38,0.12))] border-solid content-stretch flex flex-col items-center overflow-clip p-[var(--form\/padding\/large,12px)] relative rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)] shadow-[0px_1px_2px_0px_rgba(16,16,52,0.08)] shrink-0 w-full" data-node-id="I367:184243;804:13061" data-name="input">
-                          <div aria-hidden className="absolute bg-[var(--neutral.outlinedBg,white)] inset-0 pointer-events-none rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)]" />
+                        <div className="border border-[rgba(5,5,38,0.12)] border-solid content-stretch flex flex-col items-center overflow-clip p-[var(--form\/padding\/large,12px)] relative rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)] shadow-[0px_1px_2px_0px_rgba(16,16,52,0.08)] shrink-0 w-full" data-node-id="I367:184243;804:13061" data-name="input">
+                          <div aria-hidden className="absolute bg-[white] inset-0 pointer-events-none rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)]" />
                           <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-full" data-node-id="I367:184243;804:13062" data-name="padding-content">
-                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-medium font-medium leading-[16px] min-w-px not-italic overflow-hidden relative text-[11px] text-[color:var(--text.primary,#131221)] text-ellipsis whitespace-nowrap" data-node-id="I367:184243;804:13063">
+                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-medium font-medium leading-[16px] min-w-px not-italic overflow-hidden relative text-[11px] text-[color:#131221] text-ellipsis whitespace-nowrap" data-node-id="I367:184243;804:13063">
                               Start
                             </p>
                           </div>
@@ -773,10 +773,10 @@ export default function PgOverviewScheduleStep() {
                         </div>
                       </div>
                       <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--0\,5-rem,8px)] h-[60px] items-start justify-center min-w-px relative" data-node-id="367:184244" data-name="_TimeframeInput">
-                        <div className="border-[var(--neutral.outlinedBorder,rgba(5,5,38,0.12))] border-b border-r border-solid border-t content-stretch flex flex-col items-center overflow-clip p-[var(--form\/padding\/large,12px)] relative rounded-br-[var(--form\/radius\/large,6px)] rounded-tr-[var(--form\/radius\/large,6px)] shadow-[0px_1px_2px_0px_rgba(16,16,52,0.08)] shrink-0 w-full" data-node-id="I367:184244;810:13230" data-name="input">
-                          <div aria-hidden className="absolute bg-[var(--neutral.outlinedBg,white)] inset-0 pointer-events-none rounded-br-[var(--form\/radius\/large,6px)] rounded-tr-[var(--form\/radius\/large,6px)]" />
+                        <div className="border-[rgba(5,5,38,0.12)] border-b border-r border-solid border-t content-stretch flex flex-col items-center overflow-clip p-[var(--form\/padding\/large,12px)] relative rounded-br-[var(--form\/radius\/large,6px)] rounded-tr-[var(--form\/radius\/large,6px)] shadow-[0px_1px_2px_0px_rgba(16,16,52,0.08)] shrink-0 w-full" data-node-id="I367:184244;810:13230" data-name="input">
+                          <div aria-hidden className="absolute bg-[white] inset-0 pointer-events-none rounded-br-[var(--form\/radius\/large,6px)] rounded-tr-[var(--form\/radius\/large,6px)]" />
                           <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-full" data-node-id="I367:184244;810:13231" data-name="padding-content">
-                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-medium font-medium leading-[16px] min-w-px not-italic overflow-hidden relative text-[11px] text-[color:var(--text.primary,#131221)] text-ellipsis whitespace-nowrap" data-node-id="I367:184244;810:13232">
+                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-medium font-medium leading-[16px] min-w-px not-italic overflow-hidden relative text-[11px] text-[color:#131221] text-ellipsis whitespace-nowrap" data-node-id="I367:184244;810:13232">
                               End
                             </p>
                           </div>
@@ -798,7 +798,7 @@ export default function PgOverviewScheduleStep() {
                     </div>
                     <div className="content-stretch flex flex-[1_0_0] gap-[var(--form\/gap\/medium,4px)] items-center justify-center min-w-px overflow-clip px-[var(--form\/padding\/medium,12px)] relative rounded-[var(--form\/radius\/medium,6px)]" data-node-id="367:185167" data-name="month selection">
                       <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-[108px]" data-node-id="367:185168" data-name="padding-content">
-                        <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[24px] not-italic overflow-hidden relative shrink-0 text-[15px] text-[color:var(--text.primary,#131221)] text-center text-ellipsis whitespace-nowrap" data-node-id="367:185169">
+                        <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[24px] not-italic overflow-hidden relative shrink-0 text-[15px] text-[color:#131221] text-center text-ellipsis whitespace-nowrap" data-node-id="367:185169">
                           January 2026
                         </p>
                       </div>
@@ -813,37 +813,37 @@ export default function PgOverviewScheduleStep() {
                     <div className="content-stretch flex flex-col gap-[4px] h-[276px] items-end px-[8px] relative shrink-0 w-full" data-node-id="367:185191" data-name="Dates">
                       <div className="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full" data-node-id="367:185192" data-name="Week">
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185194" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185195">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185195">
                             Mo
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185196" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185197">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185197">
                             Tu
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185198" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185199">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185199">
                             We
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185200" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185201">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185201">
                             Th
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185202" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185203">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185203">
                             Fr
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185204" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185205">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185205">
                             Sa
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:185206" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185207">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:185207">
                             Su
                           </p>
                         </div>
@@ -923,7 +923,7 @@ export default function PgOverviewScheduleStep() {
                 <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="367:185315">
                   <div className="content-stretch flex flex-col gap-[14px] items-start relative shrink-0 w-full" data-node-id="367:185316">
                     <div className="border-[var(--divider,rgba(66,65,78,0.1))] border-b border-solid content-stretch flex items-center justify-between py-[16px] relative shrink-0 w-full" data-node-id="367:185317" data-name="Title">
-                      <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.primary,#131221)] whitespace-nowrap" data-node-id="367:185318">{`Pattern `}</p>
+                      <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#131221] whitespace-nowrap" data-node-id="367:185318">{`Pattern `}</p>
                       <Toggle1 className="bg-[var(--\(new\)-neutral\/solid\/800,#52515e)] content-stretch flex h-[16px] items-center overflow-clip p-[var(--toggle\/padding\/medium,2px)] relative rounded-[var(--toggle\/radius\/medium,999px)] shrink-0 w-[28px]" />
                     </div>
                   </div>

@@ -238,7 +238,7 @@ export default function NgOverviewScheduleStep() {
                     <div className="relative shrink-0 size-[16px]" data-node-id="I367:172084;769:15135" data-name="icon">
                       <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon4} />
                     </div>
-                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.secondary,#42414e)] whitespace-nowrap" data-node-id="I367:172084;769:15103">
+                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#42414e] whitespace-nowrap" data-node-id="I367:172084;769:15103">
                       Map
                     </p>
                   </div>
@@ -534,7 +534,7 @@ export default function NgOverviewScheduleStep() {
         </div>
       </div>
       <div className="absolute contents left-[670px] top-[178px]" data-node-id="367:172088">
-        <div className="absolute bg-[var(--background.body,#fdfdfd)] content-stretch flex flex-col h-[647px] items-center left-[671px] rounded-[8px] top-[179px] w-[427px]" data-node-id="367:172089" data-name="secondary panel (base)">
+        <div className="absolute bg-[#fdfdfd] content-stretch flex flex-col h-[647px] items-center left-[671px] rounded-[8px] top-[179px] w-[427px]" data-node-id="367:172089" data-name="secondary panel (base)">
           <div className="border-[var(--divider,rgba(66,65,78,0.1))] border-b border-solid content-stretch flex items-center justify-between p-[12px] relative shrink-0 w-full" data-node-id="I367:172089;3552:23172" data-name="secondary panel (base)">
             <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[156px]" data-node-id="I367:172089;3552:23172;3563:11111">
               <div className="[word-break:break-word] flex flex-col font-['Inter'] font-medium font-medium justify-end leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:172089;3552:23172;3552:23070">
@@ -542,7 +542,7 @@ export default function NgOverviewScheduleStep() {
               </div>
             </div>
             <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-node-id="I367:172089;3552:23172;3552:23080">
-              <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.tiertiary,#7c7b87)] text-right whitespace-nowrap" data-node-id="I367:172089;3552:23172;3552:23074">
+              <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#7c7b87] text-right whitespace-nowrap" data-node-id="I367:172089;3552:23172;3552:23074">
                 Deal line 1
               </p>
             </div>
@@ -594,15 +594,15 @@ export default function NgOverviewScheduleStep() {
                   <div className="content-stretch flex flex-[1_0_0] flex-col h-[60px] items-start min-w-px relative rounded-[12px]" data-node-id="367:172105" data-name="Calendar">
                     <div className="content-stretch flex items-start justify-center relative shrink-0 w-full" data-node-id="I367:172105;794:12877" data-name="Inputs">
                       <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--0\,5-rem,8px)] h-[60px] items-start justify-center min-w-px relative" data-node-id="I367:172105;804:13089" data-name="_TimeframeInput">
-                        <div className="border border-[var(--neutral.outlinedBorder,rgba(5,5,38,0.12))] border-solid content-stretch flex flex-col items-center overflow-clip p-[var(--form\/padding\/large,12px)] relative rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)] shadow-[0px_1px_2px_0px_rgba(16,16,52,0.08)] shrink-0 w-full" data-node-id="I367:172105;804:13089;804:13061" data-name="input">
-                          <div aria-hidden className="absolute bg-[var(--neutral.outlinedBg,white)] inset-0 pointer-events-none rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)]" />
+                        <div className="border border-[rgba(5,5,38,0.12)] border-solid content-stretch flex flex-col items-center overflow-clip p-[var(--form\/padding\/large,12px)] relative rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)] shadow-[0px_1px_2px_0px_rgba(16,16,52,0.08)] shrink-0 w-full" data-node-id="I367:172105;804:13089;804:13061" data-name="input">
+                          <div aria-hidden className="absolute bg-[white] inset-0 pointer-events-none rounded-bl-[var(--form\/radius\/large,6px)] rounded-tl-[var(--form\/radius\/large,6px)]" />
                           <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-full" data-node-id="I367:172105;804:13089;804:13062" data-name="padding-content">
-                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-medium font-medium leading-[16px] min-w-px not-italic overflow-hidden relative text-[11px] text-[color:var(--text.primary,#131221)] text-ellipsis whitespace-nowrap" data-node-id="I367:172105;804:13089;804:13063">
+                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-medium font-medium leading-[16px] min-w-px not-italic overflow-hidden relative text-[11px] text-[color:#131221] text-ellipsis whitespace-nowrap" data-node-id="I367:172105;804:13089;804:13063">
                               Start
                             </p>
                           </div>
                           <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-full" data-node-id="I367:172105;804:13089;804:13064" data-name="label">
-                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-regular font-normal leading-[20px] min-w-px not-italic overflow-hidden relative text-[13px] text-[color:var(--text.tiertiary,#7c7b87)] text-ellipsis whitespace-nowrap" data-node-id="I367:172105;804:13089;804:13065">
+                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-regular font-normal leading-[20px] min-w-px not-italic overflow-hidden relative text-[13px] text-[color:#7c7b87] text-ellipsis whitespace-nowrap" data-node-id="I367:172105;804:13089;804:13065">
                               01/01/2026
                             </p>
                           </div>
@@ -618,7 +618,7 @@ export default function NgOverviewScheduleStep() {
                             </p>
                           </div>
                           <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-full" data-node-id="I367:172105;804:13109;810:13233" data-name="label">
-                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-regular font-normal leading-[20px] min-w-px not-italic overflow-hidden relative text-[13px] text-[color:var(--text.tiertiary,#7c7b87)] text-ellipsis whitespace-nowrap" data-node-id="I367:172105;804:13109;810:13234">
+                            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-regular font-normal leading-[20px] min-w-px not-italic overflow-hidden relative text-[13px] text-[color:#7c7b87] text-ellipsis whitespace-nowrap" data-node-id="I367:172105;804:13109;810:13234">
                               e.g, 2f, +2d, +2m, fri
                             </p>
                           </div>
@@ -637,7 +637,7 @@ export default function NgOverviewScheduleStep() {
                     </div>
                     <div className="content-stretch flex flex-[1_0_0] gap-[var(--form\/gap\/medium,4px)] items-center justify-center min-w-px overflow-clip px-[var(--form\/padding\/medium,12px)] relative rounded-[var(--form\/radius\/medium,6px)]" data-node-id="367:172959" data-name="month selection">
                       <div className="content-stretch flex items-center px-[var(--form\/gap\/medium,4px)] relative shrink-0 w-[108px]" data-node-id="367:172960" data-name="padding-content">
-                        <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[24px] not-italic overflow-hidden relative shrink-0 text-[15px] text-[color:var(--text.primary,#131221)] text-center text-ellipsis whitespace-nowrap" data-node-id="367:172961">
+                        <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[24px] not-italic overflow-hidden relative shrink-0 text-[15px] text-[color:#131221] text-center text-ellipsis whitespace-nowrap" data-node-id="367:172961">
                           January 2026
                         </p>
                       </div>
@@ -652,37 +652,37 @@ export default function NgOverviewScheduleStep() {
                     <div className="content-stretch flex flex-col gap-[4px] h-[276px] items-end px-[8px] relative shrink-0 w-full" data-node-id="367:172983" data-name="Dates">
                       <div className="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full" data-node-id="367:172984" data-name="Week">
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172986" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172987">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172987">
                             Mo
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172988" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172989">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172989">
                             Tu
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172990" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172991">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172991">
                             We
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172992" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172993">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172993">
                             Th
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172994" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172995">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172995">
                             Fr
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172996" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172997">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172997">
                             Sa
                           </p>
                         </div>
                         <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative" data-node-id="367:172998" data-name="_Weekday">
-                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:var(--text.primary,#1c2024)] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172999">
+                          <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[12px] not-italic relative shrink-0 text-[9px] text-[color:#1c2024] tracking-[0.9px] uppercase whitespace-nowrap" data-node-id="367:172999">
                             Su
                           </p>
                         </div>
@@ -863,7 +863,7 @@ export default function NgOverviewScheduleStep() {
                 <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="367:173107">
                   <div className="content-stretch flex flex-col gap-[14px] items-start relative shrink-0 w-full" data-node-id="367:173108">
                     <div className="border-[var(--divider,rgba(66,65,78,0.1))] border-b border-solid content-stretch flex items-center justify-between py-[16px] relative shrink-0 w-full" data-node-id="367:173109" data-name="Title">
-                      <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.primary,#131221)] whitespace-nowrap" data-node-id="367:173110">{`Pattern `}</p>
+                      <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#131221] whitespace-nowrap" data-node-id="367:173110">{`Pattern `}</p>
                       <Toggle1 className="bg-[var(--\(new\)-neutral\/solid\/800,#52515e)] content-stretch flex h-[16px] items-center overflow-clip p-[var(--toggle\/padding\/medium,2px)] relative rounded-[var(--toggle\/radius\/medium,999px)] shrink-0 w-[28px]" />
                     </div>
                   </div>

@@ -258,7 +258,7 @@ export default function NgOverviewEnvironmentStep() {
                     <div className="relative shrink-0 size-[16px]" data-node-id="I367:170850;769:15135" data-name="icon">
                       <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon6} />
                     </div>
-                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.secondary,#42414e)] whitespace-nowrap" data-node-id="I367:170850;769:15103">
+                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#42414e] whitespace-nowrap" data-node-id="I367:170850;769:15103">
                       Map
                     </p>
                   </div>
@@ -268,7 +268,7 @@ export default function NgOverviewEnvironmentStep() {
           </div>
         </div>
         <div className="absolute contents left-[671px] top-[216px] z-[1]" data-node-id="367:170852">
-          <div className="absolute bg-[var(--background.body,#fdfdfd)] content-stretch flex flex-col h-[478px] items-center left-[671px] rounded-[8px] top-[216px] w-[427px]" data-node-id="367:170853" data-name="secondary panel (base)">
+          <div className="absolute bg-[#fdfdfd] content-stretch flex flex-col h-[478px] items-center left-[671px] rounded-[8px] top-[216px] w-[427px]" data-node-id="367:170853" data-name="secondary panel (base)">
             <div className="border-[var(--divider,rgba(66,65,78,0.1))] border-b border-solid content-stretch flex items-center justify-between p-[12px] relative shrink-0 w-full" data-node-id="I367:170853;3552:23172" data-name="secondary panel (base)">
               <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[156px]" data-node-id="I367:170853;3552:23172;3563:11111">
                 <div className="[word-break:break-word] flex flex-col font-['Inter'] font-medium font-medium justify-end leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="I367:170853;3552:23172;3552:23070">
@@ -276,7 +276,7 @@ export default function NgOverviewEnvironmentStep() {
                 </div>
               </div>
               <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-node-id="I367:170853;3552:23172;3552:23080">
-                <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.tiertiary,#7c7b87)] text-right whitespace-nowrap" data-node-id="I367:170853;3552:23172;3552:23074">
+                <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#7c7b87] text-right whitespace-nowrap" data-node-id="I367:170853;3552:23172;3552:23074">
                   Deal line 1
                 </p>
               </div>

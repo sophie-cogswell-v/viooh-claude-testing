@@ -250,7 +250,7 @@ export default function NgOverviewLiveDropdown() {
                     <div className="relative shrink-0 size-[16px]" data-node-id="I367:175884;769:15135" data-name="icon">
                       <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon6} />
                     </div>
-                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--text.secondary,#42414e)] whitespace-nowrap" data-node-id="I367:175884;769:15103">
+                    <p className="[word-break:break-word] font-['Inter'] font-medium font-medium leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#42414e] whitespace-nowrap" data-node-id="I367:175884;769:15103">
                       Map
                     </p>
                   </div>
@@ -563,7 +563,7 @@ export default function NgOverviewLiveDropdown() {
                         </div>
                         <div className="bg-[var(--\(new\)-primary\/solid\/700,#272199)] content-stretch flex h-full items-center px-[var(--chip\/padding\/medium,6px)] relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="I367:175888;7651:18294;7547:3713;7534:10440;749:2198" data-name="child-content">
                           <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:175888;7651:18294;7547:3713;7534:10440;749:2199" data-name="padding-text">
-                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--neutral.solidColor,#f9fafe)] text-left whitespace-nowrap" data-node-id="I367:175888;7651:18294;7547:3713;7534:10440;749:2200">
+                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#f9fafe] text-left whitespace-nowrap" data-node-id="I367:175888;7651:18294;7547:3713;7534:10440;749:2200">
                               Digital CPI
                             </p>
                           </div>
@@ -604,7 +604,7 @@ export default function NgOverviewLiveDropdown() {
                         </div>
                         <div className="bg-[var(--\(new\)-primary\/solid\/700,#272199)] content-stretch flex h-full items-center px-[var(--chip\/padding\/medium,6px)] relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="I367:175888;7651:18294;7547:43523;7534:10440;749:2198" data-name="child-content">
                           <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:175888;7651:18294;7547:43523;7534:10440;749:2199" data-name="padding-text">
-                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--neutral.solidColor,#f9fafe)] text-left whitespace-nowrap" data-node-id="I367:175888;7651:18294;7547:43523;7534:10440;749:2200">
+                            <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:#f9fafe] text-left whitespace-nowrap" data-node-id="I367:175888;7651:18294;7547:43523;7534:10440;749:2200">
                               Massachusetts
                             </p>
                           </div>
@@ -933,11 +933,11 @@ export default function NgOverviewLiveDropdown() {
           </div>
         </div>
       </div>
-      <div className="absolute border border-[var(--neutral.outlinedBorder,rgba(5,5,38,0.12))] border-solid content-stretch drop-shadow-[0px_3px_2px_rgba(16,16,52,0.06)] flex flex-col gap-[4px] items-start left-[1326px] p-[3px] rounded-[var(--radius\/md,6px)] top-[138px] w-[163px]" data-node-id="367:175966" data-name="menu list">
-        <div aria-hidden className="absolute bg-[var(--background.popup,white)] inset-0 pointer-events-none rounded-[var(--radius\/md,6px)]" />
+      <div className="absolute border border-[rgba(5,5,38,0.12)] border-solid content-stretch drop-shadow-[0px_3px_2px_rgba(16,16,52,0.06)] flex flex-col gap-[4px] items-start left-[1326px] p-[3px] rounded-[var(--radius\/md,6px)] top-[138px] w-[163px]" data-node-id="367:175966" data-name="menu list">
+        <div aria-hidden className="absolute bg-[white] inset-0 pointer-events-none rounded-[var(--radius\/md,6px)]" />
         <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="I367:175966;871:5130" data-name="actions-cluster">
           <div className="content-stretch flex gap-[10px] items-center px-[10px] py-[6px] relative rounded-[var(--radius\/sm,4px)] shrink-0 w-full" data-node-id="I367:175966;921:31257" data-name="action menu">
-            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-normal font-normal leading-[20px] min-w-px not-italic relative text-[13px] text-[color:var(--neutral.softColor,rgba(127,1,36,0.93))]" data-node-id="I367:175966;921:31257;921:31206">
+            <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-normal font-normal leading-[20px] min-w-px not-italic relative text-[13px] text-[color:rgba(127,1,36,0.93)]" data-node-id="I367:175966;921:31257;921:31206">
               Terminate
             </p>
           </div>
