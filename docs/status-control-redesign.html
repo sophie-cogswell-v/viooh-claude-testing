@@ -1,0 +1,337 @@
+<title>Status Control Redesign</title>
+<style>
+  :root{
+    --ink:#16152b; --paper:#f9f8fb; --paper-raised:#ffffff; --line:#e6e4ee;
+    --muted:#6f6d82; --accent:#4338ca; --accent-soft:#eef0fe;
+    --good:#12734a; --good-soft:#dff3ea; --warn:#9a5b0a; --warn-soft:#fbeed9;
+    --bad:#b83232; --bad-soft:#fbe7e7; --chip:#eceaf5; --chip-ink:#57546e;
+    --navy:#0c0a3e;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#eceaf5; --paper:#131226; --paper-raised:#1b1a33; --line:#2c2a48;
+      --muted:#a29fbd; --accent:#9b93ff; --accent-soft:rgba(155,147,255,0.14);
+      --good:#4fd399; --good-soft:rgba(79,211,153,0.12); --warn:#eab35c; --warn-soft:rgba(234,179,92,0.12);
+      --bad:#f28b8b; --bad-soft:rgba(242,139,139,0.12); --chip:#26243f; --chip-ink:#b6b3d1; --navy:#e8e6ff;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eceaf5; --paper:#131226; --paper-raised:#1b1a33; --line:#2c2a48;
+    --muted:#a29fbd; --accent:#9b93ff; --accent-soft:rgba(155,147,255,0.14);
+    --good:#4fd399; --good-soft:rgba(79,211,153,0.12); --warn:#eab35c; --warn-soft:rgba(234,179,92,0.12);
+    --bad:#f28b8b; --bad-soft:rgba(242,139,139,0.12); --chip:#26243f; --chip-ink:#b6b3d1; --navy:#e8e6ff;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', system-ui, sans-serif; }
+  .wrap{ max-width:880px; margin:0 auto; padding-block:52px 90px; }
+  h1,h2,h3{ font-family:'Space Grotesk', system-ui, sans-serif; text-wrap:balance; margin:0; }
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  h1{ font-size:clamp(26px,4vw,34px); font-weight:700; line-height:1.15; margin-top:10px; }
+  .dek{ color:var(--muted); font-size:15.5px; max-width:62ch; line-height:1.55; margin-top:12px; }
+
+  hr.rule{ border:none; border-top:1px solid var(--line); margin:40px 0; }
+
+  section > h2{ font-size:19px; font-weight:600; margin-bottom:6px; }
+  section > .lede{ color:var(--muted); font-size:14px; max-width:66ch; line-height:1.55; margin-bottom:22px; }
+
+  /* ---- stage ---- */
+  .stage{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:16px;
+    padding:40px 32px; display:flex; flex-direction:column; align-items:center; gap:28px;
+  }
+  .stage-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+
+  /* the pill control itself, at Figma's real 373px width */
+  .pill-control{
+    width:100%; max-width:373px; background:var(--paper-raised);
+    border:1px solid var(--line); border-radius:999px; box-shadow:0 1px 3px rgba(20,18,50,0.06);
+    display:flex; align-items:stretch; padding:5px; gap:5px;
+  }
+  .status-chip{
+    display:flex; align-items:center; gap:6px; padding:0 16px; border-radius:999px;
+    font-size:13px; font-weight:600; white-space:nowrap; flex:1 1 auto;
+  }
+  .status-chip .sw{ width:6px; height:6px; border-radius:50%; background:currentColor; }
+  .status-chip[data-s="New"]{ background:var(--chip); color:var(--chip-ink); }
+  .status-chip[data-s="Pending"]{ background:var(--warn-soft); color:var(--warn); }
+  .status-chip[data-s="Rejected"]{ background:var(--bad-soft); color:var(--bad); }
+  .status-chip[data-s="Approved"]{ background:var(--good-soft); color:var(--good); }
+  .status-chip[data-s="Live"]{ background:var(--good-soft); color:var(--good); }
+  .status-chip[data-s="Cancelled"],.status-chip[data-s="Terminated"],.status-chip[data-s="Ended"]{ background:var(--chip); color:var(--chip-ink); }
+
+  .ctrl-btn{
+    display:flex; align-items:center; gap:6px; padding:0 14px; border-radius:999px;
+    font-family:'Source Sans 3', sans-serif; font-size:13px; font-weight:600; cursor:pointer;
+    border:1px solid var(--line); background:var(--paper-raised); color:var(--accent);
+    white-space:nowrap;
+  }
+  .ctrl-btn.primary{ background:var(--navy); color:#fff; border-color:var(--navy); }
+  .ctrl-btn.danger-text{ color:var(--bad); }
+  .ctrl-btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .ctrl-btn.icon-only{ flex:0 0 auto; width:34px; justify-content:center; padding:0; color:var(--muted); }
+  .ctrl-btn.icon-only:hover:not(:disabled){ color:var(--bad); background:var(--bad-soft); border-color:var(--bad-soft); }
+  .ctrl-btn svg{ flex:none; }
+
+  .stage-note{ font-size:12.5px; color:var(--muted); text-align:center; max-width:44ch; line-height:1.5; }
+  .stage-note b{ color:var(--ink); }
+
+  /* jump-to-state controls */
+  .jump-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .jump-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; padding:6px 12px; border-radius:8px;
+    border:1px solid var(--line); background:var(--paper); color:var(--muted); cursor:pointer;
+  }
+  .jump-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .jump-btn.is-active{ background:var(--accent-soft); color:var(--accent); border-color:var(--accent); }
+
+  .history-line{ font-size:12.5px; color:var(--muted); font-family:'IBM Plex Mono', monospace; min-height:16px; }
+  .history-line b{ color:var(--ink); }
+
+  /* ---- campaign-level variant ---- */
+  .campaign-card{
+    width:100%; max-width:373px; background:var(--paper-raised); border:1px solid var(--line);
+    border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:12px;
+  }
+  .campaign-row{ display:flex; justify-content:space-between; align-items:center; font-size:13px; }
+  .campaign-row .k{ color:var(--muted); }
+  .campaign-row .v{ font-weight:600; }
+  .campaign-title{ font-size:14px; font-weight:700; }
+  .campaign-actions{ display:flex; gap:8px; }
+  .campaign-actions .ctrl-btn{ flex:1; justify-content:center; border-radius:8px; }
+
+  /* ---- before/after ---- */
+  .compare{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:560px){ .compare{ grid-template-columns:1fr; } }
+  .compare-card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .compare-card h3{ font-size:13px; font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+  .tag{ font-family:'IBM Plex Mono', monospace; font-size:10px; padding:2px 7px; border-radius:5px; }
+  .tag.old{ background:var(--chip); color:var(--chip-ink); }
+  .tag.new{ background:var(--good-soft); color:var(--good); }
+  .compare-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin:10px 0 0; }
+
+  .old-dropdown{ width:100%; max-width:300px; margin:0 auto; }
+  .old-chip-row{ display:flex; justify-content:center; }
+  .old-chip{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px; background:var(--warn-soft); color:var(--warn); font-size:12.5px; font-weight:600; cursor:pointer; border:1px solid var(--line); }
+  .old-menu{ margin-top:8px; border:1px solid var(--line); border-radius:8px; background:var(--paper-raised); overflow:hidden; }
+  .old-menu button{ display:block; width:100%; text-align:left; padding:9px 12px; font-size:12.5px; border:none; background:none; color:var(--ink); border-top:1px solid var(--line); cursor:pointer; }
+  .old-menu button:first-child{ border-top:none; }
+
+  footer{ margin-top:52px; color:var(--muted); font-size:12px; line-height:1.6; }
+  footer a{ color:var(--accent); }
+
+  @media (max-width:520px){ .wrap{ padding-inline:16px; } }
+</style>
+
+<div class="wrap">
+
+  <span class="eyebrow">Figma redesign · found 2026-09-22</span>
+  <h1>The status control, redesigned</h1>
+  <p class="dek">
+    Same node (<span class="mono">13141:107499</span>), but the status chip's interaction changed:
+    actions used to live behind a click-to-open dropdown, now they sit permanently next to the chip.
+    This is a working copy of the new control — click through it below.
+  </p>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>Try it</h2>
+    <p class="lede">Click a state to jump to it, or use the control's own buttons like a real user would. Colours and button shapes are matched to the Figma screenshots.</p>
+
+    <div class="stage">
+      <span class="stage-label">Per deal-line status pill</span>
+      <div class="pill-control" id="pill">
+        <!-- filled by JS -->
+      </div>
+      <p class="history-line" id="history"></p>
+      <div class="jump-row" id="jumpRow"></div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>What actually changed</h2>
+    <p class="lede">Side by side — the pattern that's currently built vs. what's now in Figma.</p>
+    <div class="compare">
+      <div class="compare-card">
+        <h3><span class="tag old">OLD</span> click to reveal</h3>
+        <div class="old-dropdown">
+          <div class="old-chip-row">
+            <button class="old-chip" id="oldChipBtn">● Pending <span style="opacity:.6">▾</span></button>
+          </div>
+          <div class="old-menu" id="oldMenu" hidden>
+            <button>Confirm</button>
+            <button>Reject</button>
+          </div>
+        </div>
+        <p>Actions are hidden until the chip is clicked — an extra step between seeing the status and acting on it.</p>
+      </div>
+      <div class="compare-card">
+        <h3><span class="tag new">NEW</span> always visible</h3>
+        <div class="pill-control" style="max-width:none;">
+          <span class="status-chip" data-s="Pending"><span class="sw"></span>Pending</span>
+          <button class="ctrl-btn danger-text" type="button" disabled>✕ Reject</button>
+          <button class="ctrl-btn primary" type="button" disabled>Confirm</button>
+        </div>
+        <p>Both actions sit right next to the chip. Faster, but a busier control at every status.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>The campaign-level card</h2>
+    <p class="lede">
+      New addition — didn't exist before. Same button pattern, but bigger, at the top of the
+      Campaign Info Drawer above the per-line status.
+    </p>
+    <div class="stage" style="padding:28px 24px;">
+      <div class="campaign-card">
+        <div class="campaign-title">Campaign name</div>
+        <div class="campaign-row"><span class="k">Campaign ID</span><span class="v mono" style="color:var(--accent)">123456789</span></div>
+        <div class="campaign-row"><span class="k">Created by</span><span class="v" style="color:var(--accent)">Sophie.C</span></div>
+        <div class="campaign-row"><span class="k">Status</span><span class="status-chip" data-s="New" style="flex:none;"><span class="sw"></span>New</span></div>
+        <div class="campaign-actions">
+          <button class="ctrl-btn" type="button">Send for approval</button>
+          <button class="ctrl-btn primary" type="button">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>Open questions</h2>
+    <p class="lede">Two things worth a straight answer from design before this gets built for real.</p>
+    <div class="compare">
+      <div class="compare-card">
+        <h3>Icon-only Terminate</h3>
+        <p>On Live, Terminate has no visible label — just a trash-can icon next to "Update". Deliberate, or a placeholder waiting on copy? Try it in the demo above (jump to Live).</p>
+      </div>
+      <div class="compare-card">
+        <h3>Campaign card vs. line pill</h3>
+        <p>Does the new campaign-level card (above) replace the per-line pill, sit above it, or only appear when a campaign has exactly one line?</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Reconstructed from Figma screenshots of the <span class="mono">status-island</span> and
+    <span class="mono">status id</span> components (node <span class="mono">13141:107499</span>) —
+    not pasted verbatim like the frames in <span class="mono">src/frames/</span>, so treat spacing/
+    icons here as close approximations, not pixel-exact. Repo:
+    <a href="https://github.com/sophie-cogswell-v/viooh-claude-testing" target="_blank" rel="noopener">viooh-claude-testing</a>.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var ICONS = {
+    save: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 2h8l2 2v10H3V2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.5 2v3.5h5V2" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    send: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8l12-5.5L9.5 14l-2-5-5.5-1Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    x: '<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    refresh: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M13 4.5A5.5 5.5 0 1 0 14 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M13 1.5v3.5H9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    trash: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4.5h10M6.5 4.5V3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1.5M6.5 7.5v4M9.5 7.5v4M4 4.5l.6 8a1 1 0 0 0 1 .9h4.8a1 1 0 0 0 1-.9l.6-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  };
+
+  // one entry per pill state: chip label + which buttons render (label/icon/kind)
+  var STATES = {
+    'New (empty)':   { chip:'New', buttons:[
+      {label:'Send for approval', icon:'send', disabled:true},
+      {label:'Confirm', icon:'save', kind:'primary', disabled:true}
+    ]},
+    'New (ready)':   { chip:'New', buttons:[
+      {label:'Send for approval', icon:'send'},
+      {label:'Confirm', icon:'save', kind:'primary'}
+    ]},
+    'Pending':       { chip:'Pending', buttons:[
+      {label:'Reject', icon:'x', kind:'danger-text'},
+      {label:'Confirm', icon:'save', kind:'primary'}
+    ]},
+    'Approved':      { chip:'Approved', buttons:[
+      {label:'Save changes', icon:'refresh'},
+      {label:'', icon:'trash', kind:'icon-only', title:'Cancel'}
+    ]},
+    'Live':          { chip:'Live', buttons:[
+      {label:'Update', icon:'refresh'},
+      {label:'', icon:'trash', kind:'icon-only', title:'Terminate'}
+    ]},
+    'Rejected':      { chip:'Rejected', buttons:[] },
+    'Terminated':    { chip:'Terminated', buttons:[] },
+  };
+
+  var order = Object.keys(STATES);
+  var pill = document.getElementById('pill');
+  var jumpRow = document.getElementById('jumpRow');
+  var historyEl = document.getElementById('history');
+  var history = [];
+  var current = order[0];
+
+  function renderPill(){
+    var s = STATES[current];
+    var html = '<span class="status-chip" data-s="'+s.chip+'"><span class="sw"></span>'+s.chip+'</span>';
+    s.buttons.forEach(function(b){
+      var cls = 'ctrl-btn' + (b.kind ? ' '+b.kind : '');
+      var titleAttr = b.title ? ' title="'+b.title+'"' : '';
+      html += '<button class="'+cls+'" type="button" data-label="'+b.label+'"'+(b.disabled?' disabled':'')+titleAttr+'>'+ICONS[b.icon]+(b.label?('<span>'+b.label+'</span>'):'')+'</button>';
+    });
+    pill.innerHTML = html;
+    Array.prototype.forEach.call(pill.querySelectorAll('button:not([disabled])'), function(btn){
+      btn.addEventListener('click', function(){
+        var label = btn.getAttribute('data-label') || btn.getAttribute('title') || 'action';
+        advance(label);
+      });
+    });
+  }
+
+  function renderJump(){
+    jumpRow.innerHTML = '';
+    order.forEach(function(name){
+      var b = document.createElement('button');
+      b.className = 'jump-btn' + (name === current ? ' is-active' : '');
+      b.textContent = name;
+      b.addEventListener('click', function(){ goTo(name, 'jumped here'); });
+      jumpRow.appendChild(b);
+    });
+  }
+
+  function renderHistory(){
+    historyEl.textContent = history.length ? ('history — ' + history.join('  →  ')) : '';
+  }
+
+  function goTo(name, note){
+    current = name;
+    history.push(name + (note ? '' : ''));
+    renderPill(); renderJump(); renderHistory();
+  }
+
+  var TRANSITIONS = {
+    'New (empty)':  { 'Confirm':'Approved', 'Send for approval':'Pending' },
+    'New (ready)':  { 'Confirm':'Approved', 'Send for approval':'Pending' },
+    'Pending':      { 'Confirm':'Approved', 'Reject':'Rejected' },
+    'Approved':     { 'Save changes':'Approved', 'Cancel':'Terminated' },
+    'Live':         { 'Update':'Live', 'Terminate':'Terminated' },
+  };
+
+  function advance(label){
+    var next = (TRANSITIONS[current] || {})[label];
+    goTo(next || current);
+  }
+
+  // old-dropdown demo (comparison card)
+  var oldBtn = document.getElementById('oldChipBtn');
+  var oldMenu = document.getElementById('oldMenu');
+  oldBtn.addEventListener('click', function(){ oldMenu.hidden = !oldMenu.hidden; });
+
+  history.push(current);
+  renderPill(); renderJump(); renderHistory();
+})();
+</script>
