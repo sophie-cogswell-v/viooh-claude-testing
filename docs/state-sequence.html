@@ -1,0 +1,516 @@
+<title>Deal Line State Sequence</title>
+<style>
+  :root{
+    --ink:#16152b; --paper:#f9f8fb; --paper-raised:#ffffff; --line:#e6e4ee;
+    --muted:#6f6d82; --accent:#4338ca; --accent-soft:#eef0fe;
+    --good:#12734a; --good-soft:#dff3ea; --warn:#9a5b0a; --warn-soft:#fbeed9;
+    --bad:#b83232; --bad-soft:#fbe7e7; --chip:#eceaf5; --chip-ink:#57546e;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#eceaf5; --paper:#131226; --paper-raised:#1b1a33; --line:#2c2a48;
+      --muted:#a29fbd; --accent:#9b93ff; --accent-soft:rgba(155,147,255,0.14);
+      --good:#4fd399; --good-soft:rgba(79,211,153,0.12); --warn:#eab35c; --warn-soft:rgba(234,179,92,0.12);
+      --bad:#f28b8b; --bad-soft:rgba(242,139,139,0.12); --chip:#26243f; --chip-ink:#b6b3d1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eceaf5; --paper:#131226; --paper-raised:#1b1a33; --line:#2c2a48;
+    --muted:#a29fbd; --accent:#9b93ff; --accent-soft:rgba(155,147,255,0.14);
+    --good:#4fd399; --good-soft:rgba(79,211,153,0.12); --warn:#eab35c; --warn-soft:rgba(234,179,92,0.12);
+    --bad:#f28b8b; --bad-soft:rgba(242,139,139,0.12); --chip:#26243f; --chip-ink:#b6b3d1;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  body{ background:var(--paper); color:var(--ink); font-family:'Source Sans 3', system-ui, sans-serif; }
+  .wrap{ max-width:900px; margin:0 auto; padding-block:56px 96px; }
+  h1,h2,h3{ font-family:'Space Grotesk', system-ui, sans-serif; text-wrap:balance; margin:0; }
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+
+  /* ---- masthead ---- */
+  .masthead{ display:flex; flex-direction:column; gap:14px; margin-bottom:8px; }
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  h1{ font-size:clamp(28px,4vw,38px); font-weight:700; line-height:1.1; }
+  .dek{ color:var(--muted); font-size:16px; max-width:64ch; line-height:1.55; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:6px; }
+  .meta-chip{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--chip-ink); background:var(--chip); border-radius:999px; padding:5px 11px; }
+  .meta-chip a{ color:inherit; }
+
+  hr.rule{ border:none; border-top:1px solid var(--line); margin:40px 0; }
+
+  section > h2{ font-size:20px; font-weight:600; margin-bottom:6px; }
+  section > .lede{ color:var(--muted); font-size:14.5px; max-width:68ch; line-height:1.55; margin-bottom:26px; }
+
+  /* ---- sequence ---- */
+  .sequence{ position:relative; }
+  .sequence::before{
+    content:""; position:absolute; left:19px; top:8px; bottom:8px; width:2px;
+    background:var(--line);
+  }
+  .step{ position:relative; padding-left:52px; padding-block:16px; }
+  .step + .step{ border-top:1px dashed var(--line); }
+  .step-num{
+    position:absolute; left:0; top:16px; width:40px; height:40px; border-radius:50%;
+    background:var(--paper-raised); border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--muted);
+    z-index:1;
+  }
+  .step.has-gap .step-num{ border-color:var(--warn); color:var(--warn); }
+  .step-head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 12px; }
+  .step-id{ font-size:16px; font-weight:600; }
+  .step-key{ font-size:12px; color:var(--muted); }
+  .step-desc{ color:var(--ink); opacity:.85; font-size:14.5px; margin-top:4px; line-height:1.5; max-width:60ch; }
+  .step-note{ font-size:12.5px; color:var(--warn); margin-top:6px; display:flex; gap:6px; align-items:flex-start; }
+  .step-note svg{ flex:none; margin-top:2px; }
+
+  .coverage{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+  .cov{ display:flex; align-items:center; gap:5px; font-size:11px; font-family:'IBM Plex Mono', monospace; padding:3px 8px 3px 6px; border-radius:6px; background:var(--chip); color:var(--chip-ink); }
+  .dot{ width:7px; height:7px; border-radius:50%; flex:none; }
+  .cov.built .dot{ background:var(--good); }
+  .cov.built{ color:var(--good); background:var(--good-soft); }
+  .cov.missing .dot{ background:var(--line); }
+  .cov.missing{ opacity:.55; }
+
+  /* ---- status graph ---- */
+  .graph{ display:grid; gap:10px; margin-top:8px; }
+  .graph-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:14px; }
+  .pill{ font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:600; padding:5px 12px; border-radius:999px; white-space:nowrap; }
+  .pill.new{ background:var(--accent-soft); color:var(--accent); }
+  .pill.pending{ background:var(--warn-soft); color:var(--warn); }
+  .pill.approved,.pill.live{ background:var(--good-soft); color:var(--good); }
+  .pill.terminal{ background:var(--chip); color:var(--chip-ink); }
+  .pill.rejected{ background:var(--bad-soft); color:var(--bad); }
+  .arrow{ color:var(--muted); font-size:13px; }
+  .via{ font-size:12px; color:var(--muted); }
+  .auto-tag{ font-size:11px; color:var(--muted); font-style:italic; }
+
+  /* ---- gaps ---- */
+  .gaps{ display:grid; gap:14px; }
+  .gap-card{ background:var(--paper-raised); border:1px solid var(--line); border-left:3px solid var(--warn); border-radius:10px; padding:16px 18px; }
+  .gap-card h3{ font-size:14.5px; font-weight:600; margin-bottom:5px; }
+  .gap-card p{ font-size:13.5px; color:var(--muted); line-height:1.55; margin:0; }
+  .gap-card p + p{ margin-top:6px; }
+
+  /* ---- appendix table ---- */
+  .table-scroll{ overflow-x:auto; border:1px solid var(--line); border-radius:10px; }
+  table{ border-collapse:collapse; width:100%; min-width:640px; font-size:13px; }
+  thead th{ text-align:left; font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); padding:10px 14px; background:var(--chip); position:sticky; top:0; }
+  tbody td{ padding:9px 14px; border-top:1px solid var(--line); vertical-align:top; }
+  tbody tr:hover td{ background:var(--accent-soft); }
+  td.mono{ white-space:nowrap; }
+  .src-flag{ color:var(--warn); font-size:11.5px; }
+
+  footer{ margin-top:56px; color:var(--muted); font-size:12.5px; line-height:1.6; }
+  footer a{ color:var(--accent); }
+
+  @media (max-width:520px){
+    .wrap{ padding-inline:16px; }
+    .step{ padding-left:44px; }
+    .step-num{ width:34px; height:34px; left:0; font-size:12px; }
+    .sequence::before{ left:16px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="eyebrow">Deal Creation Flow · Reference</span>
+    <h1>The 17-state sequence, as built</h1>
+    <p class="dek">
+      Every screen in <code class="mono">viooh-claude-testing</code> is pasted verbatim from a Figma
+      frame via <code class="mono">get_design_context</code> — no reinterpretation. This page reads
+      that source of truth (<code class="mono">src/frames/registry.ts</code> + each frame's Figma node
+      id) and lays out the full walk order, what's actually built for NG vs PG and Overview vs Map,
+      and where the build still diverges from the status table product signed off.
+    </p>
+    <div class="meta-row">
+      <span class="meta-chip">17 steps</span>
+      <span class="meta-chip">4 slots — NG/PG × Overview/Map</span>
+      <span class="meta-chip">23 Figma frames imported</span>
+      <span class="meta-chip"><a href="https://github.com/sophie-cogswell-v/viooh-claude-testing" target="_blank" rel="noopener">repo ↗</a></span>
+    </div>
+  </div>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>Figma has moved on — the status control is redesigned</h2>
+    <p class="lede">
+      Checked the source file again for this page (same link, still node <span class="mono">13141:107499</span>)
+      and the status control itself has changed since the frames below were imported. Worth a look
+      before building anything further against the old pattern.
+    </p>
+    <div class="gaps" style="margin-bottom:8px;">
+      <div class="gap-card" style="border-left-color:var(--accent);">
+        <h3>Old: click the status chip to open a dropdown</h3>
+        <p>What's built today (<span class="mono">pending-dropdown</span>, <span class="mono">live-dropdown</span> steps) — the chip is closed by default; clicking it reveals a menu of actions.</p>
+      </div>
+      <div class="gap-card" style="border-left-color:var(--good);">
+        <h3>New: chip + action buttons, always visible, no click-to-reveal</h3>
+        <p><b>New</b> → chip + <span class="mono">Send for approval</span> / <span class="mono">Confirm</span> sitting right next to it (greyed out until the line is ready). <b>Pending</b> → chip + <span class="mono">Reject</span> / <span class="mono">Confirm</span>. <b>Rejected</b> → chip only, no buttons — matches "dropdown disabled" from the signed-off table. <b>Live</b> → chip + <span class="mono">Update</span> + a bin icon in place of a labelled Terminate button.</p>
+      </div>
+      <div class="gap-card">
+        <h3>Two things worth a straight answer from design before we build it</h3>
+        <p>1) On Live, Terminate is now an unlabelled trash-can icon rather than text — worth confirming that's deliberate (an icon-only destructive action with no visible label is easy to mis-click or miss entirely) rather than a placeholder.</p>
+        <p>2) There's also a new, bigger "status id" card at the campaign level (Campaign name/ID/Created by/Status + the same Send for approval/Confirm buttons) that didn't exist before — worth confirming this is meant to sit above the per-line status, not replace it.</p>
+      </div>
+    </div>
+    <p class="lede" style="margin-bottom:0;">
+      Nothing below has been rebuilt against this yet — the walk order, coverage and node table
+      still describe the dropdown-based frames currently in <span class="mono">src/frames/</span>.
+      Flagging it here so it's not mistaken for current.
+    </p>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>The walk order</h2>
+    <p class="lede">
+      This is the literal order the prototype's Prev/Next toolbar steps through — one linear tour,
+      not the branching status graph (that's the next section). Each dot row shows whether that
+      exact state has its own Figma-sourced frame for NG·Overview, NG·Map, PG·Overview and PG·Map,
+      in that order — a hollow dot means the router falls back to the nearest earlier state instead.
+    </p>
+
+    <div class="sequence">
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-head"><span class="step-id">Campaign — empty</span><span class="step-key mono">campaign-empty</span></div>
+        <p class="step-desc">Just landed. Campaign name, ID, status = New, deal-type tabs (NG Floor / NG Fixed / PG), Campaign details collapsed.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov built"><span class="dot"></span>NG·Map</span>
+          <span class="cov built"><span class="dot"></span>PG·Overview</span>
+          <span class="cov built"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-head"><span class="step-id">Campaign — expanded</span><span class="step-key mono">campaign-expanded</span></div>
+        <p class="step-desc">Ownership &amp; sales and Settings sections opened on top of Campaign details.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov built"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-head"><span class="step-id">Deal line — created</span><span class="step-key mono">deal-created</span></div>
+        <p class="step-desc">Drawer switches from Campaign to the new Deal line's info panel — Schedule / Environment / DSP / CPM rows all showing "Required", nothing opened yet.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-head"><span class="step-id">Schedule step</span><span class="step-key mono">schedule-step</span></div>
+        <p class="step-desc">Schedule row open — start/end date fields plus the January calendar picker.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov built"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-head"><span class="step-id">Environment step</span><span class="step-key mono">environment-step</span></div>
+        <p class="step-desc">Environment row open — checklist (Airports, Billboard, Transport, Street Furniture, Shopping Mall).</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-head"><span class="step-id">Environment — selected</span><span class="step-key mono">environment-selected</span></div>
+        <p class="step-desc">Airports ticked; still on the Environment step, ready to move on.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">07</div>
+        <div class="step-head"><span class="step-id">DSP step</span><span class="step-key mono">dsp-step</span></div>
+        <p class="step-desc">DSP row open — searchable radio list (Adform, Better Ads, Cassie, Padeway GB, Hawk GB).</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">08</div>
+        <div class="step-head"><span class="step-id">CPM step</span><span class="step-key mono">cpm-step</span></div>
+        <p class="step-desc">CPM row open — £ input, optional "Apply across all lines".</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step has-gap">
+        <div class="step-num">09</div>
+        <div class="step-head"><span class="step-id">Location step</span><span class="step-key mono">location-step</span></div>
+        <p class="step-desc">Data targeting → Location opens. PG shows extra targets (Budget, Frame, Impressions) that NG doesn't have.</p>
+        <div class="coverage">
+          <span class="cov missing"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov built"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+        <p class="step-note"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 12 11H0Z" fill="currentColor"/></svg>NG has no Location frame at all — router falls back to the CPM step screen, so NG never visually shows this step.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">10</div>
+        <div class="step-head"><span class="step-id">Validating</span><span class="step-key mono">validating</span></div>
+        <p class="step-desc">Right panel fills with Availability / Pricing / Distribution; spinner + "We are validating your solution" toast while it resolves.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov built"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">11</div>
+        <div class="step-head"><span class="step-id">Pending</span><span class="step-key mono">pending</span></div>
+        <p class="step-desc">Status flips to <strong>Pending approval</strong> after Send for approval. Impressions / Total cost now show on the right panel.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step has-gap">
+        <div class="step-num">12</div>
+        <div class="step-head"><span class="step-id">Pending — dropdown</span><span class="step-key mono">pending-dropdown</span></div>
+        <p class="step-desc">Status chip clicked open — Confirm exposed (the action that lands on Approved).</p>
+        <p class="step-note"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 12 11H0Z" fill="currentColor"/></svg>Figma has since redesigned this — Reject/Confirm now sit next to the chip permanently, no click-to-open. See "Figma has moved on" above.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step has-gap">
+        <div class="step-num">13</div>
+        <div class="step-head"><span class="step-id">Approved</span><span class="step-key mono">approved</span></div>
+        <p class="step-desc">Status = Approved. On PG this is where the Allocation panel appears — the availability check we flagged as pending product confirmation.</p>
+        <div class="coverage">
+          <span class="cov missing"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov built"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+        <p class="step-note"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 12 11H0Z" fill="currentColor"/></svg>NG has no distinct Approved frame — the walkthrough stays on the Pending dropdown screen and jumps straight to Live. Worth building; Approved is a real, visible status.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">14</div>
+        <div class="step-head"><span class="step-id">Live</span><span class="step-key mono">live</span></div>
+        <p class="step-desc">Status = Live (green). "Line changes saved successfully" toast.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov built"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step has-gap">
+        <div class="step-num">15</div>
+        <div class="step-head"><span class="step-id">Live — dropdown</span><span class="step-key mono">live-dropdown</span></div>
+        <p class="step-desc">Status chip open on Live — Terminate exposed.</p>
+        <p class="step-note"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 12 11H0Z" fill="currentColor"/></svg>Redesigned — now chip + "Update" button + an unlabelled trash-can icon, always visible, no dropdown. Worth confirming the icon-only Terminate is intentional.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">16</div>
+        <div class="step-head"><span class="step-id">Rejected</span><span class="step-key mono">rejected</span></div>
+        <p class="step-desc">Status = Rejected, drawer fields disabled, Delivery card shows 0 traded / remaining impressions. NG Map's twin for this slot is labelled "Terminated" in code — see note below.</p>
+        <div class="coverage">
+          <span class="cov built"><span class="dot"></span>NG·Overview</span>
+          <span class="cov built"><span class="dot"></span>NG·Map</span>
+          <span class="cov missing"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+      </div>
+
+      <div class="step has-gap">
+        <div class="step-num">17</div>
+        <div class="step-head"><span class="step-id">Ended</span><span class="step-key mono">ended</span></div>
+        <p class="step-desc">Status = Ended — the automatic close-out once a Live line passes its end date.</p>
+        <div class="coverage">
+          <span class="cov missing"><span class="dot"></span>NG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>NG·Map</span>
+          <span class="cov built"><span class="dot"></span>PG·Overview</span>
+          <span class="cov missing"><span class="dot"></span>PG·Map</span>
+        </div>
+        <p class="step-note"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 12 11H0Z" fill="currentColor"/></svg>NG has no Ended frame — walkthrough shows the Rejected screen instead, which reads wrong (Rejected and Ended are different terminal states with different copy).</p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>The actual status graph</h2>
+    <p class="lede">
+      This is the branching machine product signed off — not a straight line. New and Pending
+      approval are the only statuses that let a person choose between two outcomes; Approved→Live
+      and Live→Ended happen on their own, off the line's schedule, never from a click.
+    </p>
+
+    <div class="graph">
+      <div class="graph-row">
+        <span class="pill new">New</span>
+        <span class="arrow">— Send for approval →</span>
+        <span class="pill pending">Pending approval</span>
+        <span class="arrow">— Confirm →</span>
+        <span class="pill approved">Approved</span>
+        <span class="arrow">— <span class="auto-tag">start date</span> →</span>
+        <span class="pill live">Live</span>
+        <span class="arrow">— <span class="auto-tag">end date</span> →</span>
+        <span class="pill terminal">Ended</span>
+      </div>
+      <div class="graph-row">
+        <span class="pill new" style="visibility:hidden">New</span>
+        <span class="arrow" style="visibility:hidden">—</span>
+        <span class="pill pending" style="visibility:hidden">Pending approval</span>
+        <span class="arrow">— Reject →</span>
+        <span class="pill rejected">Rejected</span>
+        <span class="via">— Send for approval → back to Pending</span>
+      </div>
+      <div class="graph-row">
+        <span class="pill new" style="visibility:hidden">New</span>
+        <span class="arrow" style="visibility:hidden">—</span>
+        <span class="pill pending" style="visibility:hidden">Pending approval</span>
+        <span class="arrow" style="visibility:hidden">—</span>
+        <span class="pill approved" style="visibility:hidden">Approved</span>
+        <span class="arrow">— Cancel →</span>
+        <span class="pill terminal">Cancelled</span>
+      </div>
+      <div class="graph-row">
+        <span class="pill new" style="visibility:hidden">New</span>
+        <span class="arrow" style="visibility:hidden">—</span>
+        <span class="pill pending" style="visibility:hidden">Pending approval</span>
+        <span class="arrow" style="visibility:hidden">—</span>
+        <span class="pill approved" style="visibility:hidden">Approved</span>
+        <span class="arrow" style="visibility:hidden">—</span>
+        <span class="pill live" style="visibility:hidden">Live</span>
+        <span class="arrow">— Terminate →</span>
+        <span class="pill terminal">Terminated</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>Gaps worth knowing about</h2>
+    <p class="lede">Found by reading <code class="mono">registry.ts</code> against the state list above — none of these block the current demo, but worth a look before the next build pass.</p>
+    <div class="gaps">
+      <div class="gap-card">
+        <h3>NG never shows a distinct "Approved" screen</h3>
+        <p>The walkthrough jumps from the Pending dropdown straight to Live for NG. Approved is a real status a deal line sits in (sometimes for days, waiting on its start date) — worth its own frame.</p>
+      </div>
+      <div class="gap-card">
+        <h3>NG has no "Ended" screen — falls back to "Rejected"</h3>
+        <p>Different terminal states, different meaning and copy. Right now stepping to Ended on NG just re-shows the Rejected frame, which would read as a bug in a demo.</p>
+      </div>
+      <div class="gap-card">
+        <h3>PG is 5 of 17 states; PG Map is 1 of 17</h3>
+        <p>Built: campaign-empty, schedule-step, location-step, approved, ended. Missing all of: campaign-expanded, deal-created, environment, DSP, CPM, validating, pending, pending-dropdown, live, live-dropdown, rejected — and every Map state past the empty campaign.</p>
+      </div>
+      <div class="gap-card">
+        <h3>PG's "location-step" frame is sourced from a component named <span class="mono">PgMapLiveDelivery</span></h3>
+        <p>Worth a quick visual check against Figma node <span class="mono">367:186632</span> — the file/component name suggests it may actually be a Map/Live-delivery screen reused for the Location step slot, not a fresh Location-step capture.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <h2>Every frame, traced to its Figma node</h2>
+    <p class="lede">Straight from each generated component's header comment — the exact node <code class="mono">get_design_context</code> was called on.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>State</th><th>Slot</th><th>Component</th><th>Figma node</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>campaign-empty</td><td>PG · Overview</td><td class="mono">PgOverviewEmpty</td><td class="mono">367:177424</td></tr>
+          <tr><td>campaign-empty</td><td>PG · Map</td><td class="mono">PgMapEmpty</td><td class="mono">367:177242</td></tr>
+          <tr><td>campaign-empty / expanded</td><td>NG · Map</td><td class="mono">NgMapEmpty / NgMapCampaignExpanded</td><td class="mono">367:165180 · 367:165238</td></tr>
+          <tr><td>campaign-expanded</td><td>NG · Overview</td><td class="mono">NgOverviewFrame02</td><td class="mono">367:170739</td></tr>
+          <tr><td>deal-created</td><td>NG · Overview</td><td class="mono">NgOverviewFrame03</td><td class="mono">367:170798</td></tr>
+          <tr><td>schedule-step</td><td>NG · Overview</td><td class="mono">NgOverviewScheduleStep</td><td class="mono">367:172062</td></tr>
+          <tr><td>schedule-step</td><td>PG · Overview</td><td class="mono">PgOverviewScheduleStep</td><td class="mono">367:184198</td></tr>
+          <tr><td>environment-step</td><td>NG · Overview</td><td class="mono">NgOverviewEnvironmentStep</td><td class="mono">367:170828</td></tr>
+          <tr><td>environment-selected</td><td>NG · Overview</td><td class="mono">NgOverviewFrame06</td><td class="mono">367:170870</td></tr>
+          <tr><td>dsp-step</td><td>NG · Overview</td><td class="mono">NgOverviewDspStep</td><td class="mono">367:170912</td></tr>
+          <tr><td>cpm-step</td><td>NG · Overview</td><td class="mono">NgOverviewCpmStep</td><td class="mono">367:171063</td></tr>
+          <tr><td>location-step</td><td>PG · Overview</td><td class="mono">PgMapLiveDelivery <span class="src-flag">⚑ check source</span></td><td class="mono">367:186632</td></tr>
+          <tr><td>validating</td><td>NG · Overview</td><td class="mono">NgOverviewLater</td><td class="mono">367:175649</td></tr>
+          <tr><td>validating</td><td>NG · Map</td><td class="mono">NgMapDealFilled</td><td class="mono">367:168589</td></tr>
+          <tr><td>pending</td><td>NG · Overview</td><td class="mono">NgOverviewPending</td><td class="mono">367:176494</td></tr>
+          <tr><td>pending-dropdown</td><td>NG · Overview</td><td class="mono">NgOverviewPendingDropdown</td><td class="mono">367:175331</td></tr>
+          <tr><td>approved</td><td>PG · Overview</td><td class="mono">PgOverviewApproved</td><td class="mono">367:187717</td></tr>
+          <tr><td>live</td><td>NG · Overview</td><td class="mono">NgOverviewLive</td><td class="mono">367:175757</td></tr>
+          <tr><td>live</td><td>NG · Map</td><td class="mono">NgMapLive</td><td class="mono">367:170052</td></tr>
+          <tr><td>live-dropdown</td><td>NG · Overview</td><td class="mono">NgOverviewLiveDropdown</td><td class="mono">367:175862</td></tr>
+          <tr><td>rejected</td><td>NG · Overview</td><td class="mono">NgOverviewRejected</td><td class="mono">367:176390</td></tr>
+          <tr><td>rejected</td><td>NG · Map</td><td class="mono">NgMapTerminated <span class="src-flag">⚑ named "Terminated"</span></td><td class="mono">367:170260</td></tr>
+          <tr><td>ended</td><td>PG · Overview</td><td class="mono">PgOverviewEnded</td><td class="mono">367:187960</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    Generated by reading <span class="mono">src/frames/registry.ts</span>, every frame's
+    <span class="mono">// Generated from Figma get_design_context (node …)</span> header comment,
+    and a full click-through of the running prototype at <span class="mono">localhost:5173</span>.
+    Repo: <a href="https://github.com/sophie-cogswell-v/viooh-claude-testing" target="_blank" rel="noopener">github.com/sophie-cogswell-v/viooh-claude-testing</a>.
+  </footer>
+
+</div>
