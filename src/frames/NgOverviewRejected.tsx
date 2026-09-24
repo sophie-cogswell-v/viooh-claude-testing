@@ -5,6 +5,8 @@
 // Local rewrites: asset prefix → /figma-assets, Inter font classes,
 // duplicated default export stripped, top component renamed.
 
+import StatusIsland from '../StatusIsland';
+
 const assetPathPrefix = "/figma-assets";
 const imgTreeStructure = `${assetPathPrefix}/0ebb0.svg`;
 const imgStateDefaultTypeRecord = `${assetPathPrefix}/c54a8.svg`;
@@ -694,30 +696,7 @@ export default function NgOverviewRejected() {
       </div>
       <div className="absolute content-stretch flex flex-col gap-[10px] h-[937px] items-start left-[1133px] top-[46px] w-[373px]" data-node-id="367:176416" data-name="Summary panel">
         <LegacyTogglePill className="bg-[var(--\(new\)-neutral\/solid\/50,white)] border border-[#e5e5eb] border-solid content-stretch drop-shadow-[0px_2px_4px_rgba(18,18,33,0.06)] flex gap-[10px] items-center justify-center px-[14px] py-[8px] relative rounded-[999px] shrink-0 w-full" />
-        <div className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" data-node-id="367:176418" data-name="status-island">
-          <p className="[word-break:break-word] font-['Inter'] font-semibold font-semibold leading-[normal] not-italic relative shrink-0 text-[#131221] text-[13px] whitespace-nowrap" data-node-id="I367:176418;13261:99851">
-            Status
-          </p>
-          <div className="content-stretch flex items-center overflow-clip relative shrink-0" data-node-id="I367:176418;13261:99852" data-name="Frame">
-            <div className="bg-[var(--\(new\)-pinkred\/opacity\/10,rgba(228,46,79,0.1))] content-stretch flex h-[24px] items-center justify-center min-w-[24px] overflow-clip relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="I367:176418;13261:99853" data-name="chip">
-              <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:176418;13261:99853;845:6619" data-name="parent-content">
-                <div className="relative shrink-0 size-[16px]" data-node-id="I367:176418;13261:99853;845:6620" data-name="icon">
-                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon12} />
-                </div>
-                <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:176418;13261:99853;845:6621" data-name="padding-text">
-                  <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-pinkred\/solid\/700,#be1235)] whitespace-nowrap" data-node-id="I367:176418;13261:99853;845:6622">
-                    Rejected
-                  </p>
-                </div>
-              </div>
-              <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:176418;13261:99853;845:6626" data-name="remove">
-                <div className="relative shrink-0 size-[16px]" data-node-id="I367:176418;13261:99853;845:6627" data-name="icon">
-                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon13} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <StatusIsland type="rejected" className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" />
         <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-node-id="367:176419" data-name="Summary Panel — MASTER">
           <div className="bg-white border border-[#e5e5eb] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[12px] shrink-0 w-full" data-node-id="367:176420" data-name="panel">
             <div className="content-stretch flex flex-col items-start overflow-clip pb-[10px] pt-[12px] px-[10px] relative shrink-0 w-full" data-node-id="367:176421" data-name="header">

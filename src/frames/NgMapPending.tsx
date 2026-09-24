@@ -5,6 +5,8 @@
 // Local rewrites: asset prefix → /figma-assets, Inter font classes,
 // duplicated default export stripped, top component renamed.
 
+import StatusIsland from '../StatusIsland';
+
 const assetPathPrefix = "/figma-assets";
 const imgIcon = `${assetPathPrefix}/b07b2.svg`;
 const imgIcon1 = `${assetPathPrefix}/a0785.svg`;
@@ -56,40 +58,6 @@ const imgTags = `${assetPathPrefix}/8a2a7.svg`;
 const imgIcon18 = `${assetPathPrefix}/5c98d.svg`;
 const imgIcon19 = `${assetPathPrefix}/24fb2.svg`;
 const imgGuideMediaBd5Ccd85Dcae4E60A1DbE7E941Ad08Ae = `${assetPathPrefix}/e1686.svg`;
-
-type StatusIslandProps = {
-  className?: string;
-  type?: "pending";
-};
-
-function StatusIsland({ className, type = "pending" }: StatusIslandProps) {
-  return (
-    <div className={className || "bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] w-[365px]"} data-node-id="367:72959">
-      <p className="[word-break:break-word] font-['Inter'] font-semibold font-semibold leading-[normal] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="367:72960">
-        Status
-      </p>
-      <div className="content-stretch flex items-center overflow-clip relative shrink-0" data-node-id="367:72961" data-name="Frame">
-        <div className="bg-[var(--\(new\)-yellow\/opacity\/5,rgba(248,188,26,0.05))] content-stretch flex h-[24px] items-center justify-center min-w-[24px] overflow-clip relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="367:72962" data-name="chip">
-          <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:72962;845:5179" data-name="parent-content">
-            <div className="relative shrink-0 size-[16px]" data-node-id="I367:72962;845:5180" data-name="icon">
-              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
-            </div>
-            <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:72962;845:5181" data-name="padding-text">
-              <p className="[word-break:break-word] font-['Inter'] font-normal font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-yellow\/solid\/600,#e4b02e)] whitespace-nowrap" data-node-id="I367:72962;845:5182">
-                Pending
-              </p>
-            </div>
-          </div>
-          <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:72962;845:5186" data-name="remove">
-            <div className="relative shrink-0 size-[16px]" data-node-id="I367:72962;845:5187" data-name="icon">
-              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon1} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 type ToggleProps = {
   className?: string;
@@ -225,7 +193,7 @@ export default function NgMapPending() {
       <div className="absolute content-stretch flex flex-col gap-[10px] h-[937px] items-start left-[1238px] top-[46px] w-[373px]" data-node-id="367:169738" data-name="Summary panel">
         <div className="content-stretch flex flex-col gap-[5px] items-start relative shrink-0 w-full" data-node-id="367:169739">
           <LegacyTogglePill className="bg-[var(--\(new\)-neutral\/solid\/50,white)] border border-[#e5e5eb] border-solid content-stretch drop-shadow-[0px_2px_4px_rgba(18,18,33,0.06)] flex gap-[10px] items-center justify-center px-[14px] py-[8px] relative rounded-[999px] shrink-0 w-full" />
-          <StatusIsland className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" />
+          <StatusIsland type="pending" className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" />
         </div>
         <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-node-id="367:169742" data-name="Summary Panel — MASTER">
           <div className="bg-white border border-[#e5e5eb] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[12px] shrink-0 w-full" data-node-id="367:169743" data-name="panel">

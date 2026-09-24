@@ -9,9 +9,7 @@ import NgOverviewDspStep from './NgOverviewDspStep'
 import NgOverviewCpmStep from './NgOverviewCpmStep'
 import NgOverviewLater from './NgOverviewLater'
 import NgOverviewPending from './NgOverviewPending'
-import NgOverviewPendingDropdown from './NgOverviewPendingDropdown'
 import NgOverviewLive from './NgOverviewLive'
-import NgOverviewLiveDropdown from './NgOverviewLiveDropdown'
 import NgOverviewRejected from './NgOverviewRejected'
 import NgMapEmpty from './NgMapEmpty'
 import NgMapCampaignExpanded from './NgMapCampaignExpanded'
@@ -26,12 +24,9 @@ import NgMapPending from './NgMapPending'
 import NgMapLive from './NgMapLive'
 import NgMapTerminated from './NgMapTerminated'
 import NgOverviewLocationStep from './NgOverviewLocationStep'
-import NgOverviewNewDropdown from './NgOverviewNewDropdown'
-import NgMapNewDropdown from './NgMapNewDropdown'
 import NgOverviewTerminated from './NgOverviewTerminated'
 import NgOverviewEnded from './NgOverviewEnded'
 import NgMapEnded from './NgMapEnded'
-import NgMapLiveDropdown from './NgMapLiveDropdown'
 import NgMapEnvironmentSelected from './NgMapEnvironmentSelected'
 import PgOverviewEmpty from './PgOverviewEmpty'
 import PgOverviewScheduleStep from './PgOverviewScheduleStep'
@@ -45,10 +40,8 @@ import PgOverviewEnvironmentStep from './PgOverviewEnvironmentStep'
 import PgOverviewEnvironmentSelected from './PgOverviewEnvironmentSelected'
 import PgOverviewDspStep from './PgOverviewDspStep'
 import PgOverviewCpmStep from './PgOverviewCpmStep'
-import PgOverviewNewDropdown from './PgOverviewNewDropdown'
 import PgOverviewValidating from './PgOverviewValidating'
 import PgOverviewPending from './PgOverviewPending'
-import PgOverviewPendingDropdown from './PgOverviewPendingDropdown'
 import PgOverviewLive from './PgOverviewLive'
 import PgOverviewTerminated from './PgOverviewTerminated'
 import PgMapCampaignExpanded from './PgMapCampaignExpanded'
@@ -59,9 +52,7 @@ import PgMapEnvironmentSelected from './PgMapEnvironmentSelected'
 import PgMapDspStep from './PgMapDspStep'
 import PgMapCpmStep from './PgMapCpmStep'
 import PgMapLocationStep from './PgMapLocationStep'
-import PgMapNewDropdown from './PgMapNewDropdown'
 import PgMapPending from './PgMapPending'
-import PgMapPendingDropdown from './PgMapPendingDropdown'
 import PgMapValidating from './PgMapValidating'
 import PgMapApproved from './PgMapApproved'
 import PgMapTerminated from './PgMapTerminated'
@@ -94,14 +85,11 @@ export const STEPS = [
   'dsp-step',              // DSP row open with radio list
   'cpm-step',              // CPM row open with £ input
   'location-step',         // Data targeting → Location open (PG has more targets)
-  'new-dropdown',          // status = New, dropdown open (Send for approval / Confirm)
   'validating',            // spinner while availability resolves
-  'pending',               // status = Pending after Send for approval
-  'pending-dropdown',      // Pending, status dropdown open (Confirm)
+  'pending',               // status = Pending — chip + Reject/Confirm always visible
   'approved',              // status = Approved (PG shows Allocation panel)
-  'live',                  // status = Live, Line saved toast
-  'live-dropdown',         // Live, status dropdown open (Terminate)
-  'rejected',              // status = Rejected, drawer disabled
+  'live',                  // status = Live — chip + Update + icon-only Terminate, always visible
+  'rejected',              // status = Rejected — chip + Update/Send for approval, always visible
   'terminated',            // status = Terminated (Live → Terminate result), drawer disabled
   'ended',                 // status = Ended, drawer disabled
 ] as const
@@ -255,14 +243,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'overview', step: 'location-step', order: 8,
     actions: {},
   },
-  'ng-overview-new-dropdown': {
-    id: 'ng-overview-new-dropdown',
-    label: 'NG · New (dropdown)',
-    designWidth: 1512, designHeight: 982,
-    Component: NgOverviewNewDropdown,
-    dealType: 'ng-floor', view: 'overview', step: 'new-dropdown', order: 9,
-    actions: {},
-  },
   'ng-overview-validating': {
     id: 'ng-overview-validating',
     label: 'NG · validating',
@@ -279,28 +259,12 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'overview', step: 'pending', order: 10,
     actions: {},
   },
-  'ng-overview-pending-dropdown': {
-    id: 'ng-overview-pending-dropdown',
-    label: 'NG · Pending (dropdown)',
-    designWidth: 1512, designHeight: 982,
-    Component: NgOverviewPendingDropdown,
-    dealType: 'ng-floor', view: 'overview', step: 'pending-dropdown', order: 11,
-    actions: {},
-  },
   'ng-overview-live': {
     id: 'ng-overview-live',
     label: 'NG · Live',
     designWidth: 1512, designHeight: 982,
     Component: NgOverviewLive,
     dealType: 'ng-floor', view: 'overview', step: 'live', order: 12,
-    actions: {},
-  },
-  'ng-overview-live-dropdown': {
-    id: 'ng-overview-live-dropdown',
-    label: 'NG · Live (dropdown)',
-    designWidth: 1512, designHeight: 982,
-    Component: NgOverviewLiveDropdown,
-    dealType: 'ng-floor', view: 'overview', step: 'live-dropdown', order: 13,
     actions: {},
   },
   'ng-overview-rejected': {
@@ -401,14 +365,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'ng-floor', view: 'map', step: 'location-step', order: 8,
     actions: {},
   },
-  'ng-map-new-dropdown': {
-    id: 'ng-map-new-dropdown',
-    label: 'NG Map · New (dropdown)',
-    designWidth: 1620, designHeight: 982,
-    Component: NgMapNewDropdown,
-    dealType: 'ng-floor', view: 'map', step: 'new-dropdown', order: 9,
-    actions: {},
-  },
   'ng-map-deal-filled': {
     id: 'ng-map-deal-filled',
     label: 'NG Map · deal filled',
@@ -435,14 +391,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1620, designHeight: 982,
     Component: NgMapLive,
     dealType: 'ng-floor', view: 'map', step: 'live', order: 13,
-    actions: {},
-  },
-  'ng-map-live-dropdown': {
-    id: 'ng-map-live-dropdown',
-    label: 'NG Map · Live (dropdown)',
-    designWidth: 1620, designHeight: 982,
-    Component: NgMapLiveDropdown,
-    dealType: 'ng-floor', view: 'map', step: 'live-dropdown', order: 15,
     actions: {},
   },
   'ng-map-terminated': {
@@ -538,14 +486,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'pg', view: 'overview', step: 'location-step', order: 7,
     actions: {},
   },
-  'pg-overview-new-dropdown': {
-    id: 'pg-overview-new-dropdown',
-    label: 'PG · New (dropdown)',
-    designWidth: 1512, designHeight: 982,
-    Component: PgOverviewNewDropdown,
-    dealType: 'pg', view: 'overview', step: 'new-dropdown', order: 9,
-    actions: {},
-  },
   'pg-overview-validating': {
     id: 'pg-overview-validating',
     label: 'PG · validating',
@@ -560,14 +500,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1512, designHeight: 982,
     Component: PgOverviewPending,
     dealType: 'pg', view: 'overview', step: 'pending', order: 11,
-    actions: {},
-  },
-  'pg-overview-pending-dropdown': {
-    id: 'pg-overview-pending-dropdown',
-    label: 'PG · Pending (dropdown)',
-    designWidth: 1512, designHeight: 982,
-    Component: PgOverviewPendingDropdown,
-    dealType: 'pg', view: 'overview', step: 'pending-dropdown', order: 12,
     actions: {},
   },
   'pg-overview-approved': {
@@ -674,14 +606,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     dealType: 'pg', view: 'map', step: 'location-step', order: 8,
     actions: {},
   },
-  'pg-map-new-dropdown': {
-    id: 'pg-map-new-dropdown',
-    label: 'PG Map · New (dropdown)',
-    designWidth: 1620, designHeight: 982,
-    Component: PgMapNewDropdown,
-    dealType: 'pg', view: 'map', step: 'new-dropdown', order: 9,
-    actions: {},
-  },
   'pg-map-validating': {
     id: 'pg-map-validating',
     label: 'PG Map · validating',
@@ -696,14 +620,6 @@ export const FRAMES: Record<string, FrameEntry> = {
     designWidth: 1620, designHeight: 982,
     Component: PgMapPending,
     dealType: 'pg', view: 'map', step: 'pending', order: 11,
-    actions: {},
-  },
-  'pg-map-pending-dropdown': {
-    id: 'pg-map-pending-dropdown',
-    label: 'PG Map · Pending (dropdown)',
-    designWidth: 1620, designHeight: 982,
-    Component: PgMapPendingDropdown,
-    dealType: 'pg', view: 'map', step: 'pending-dropdown', order: 12,
     actions: {},
   },
   'pg-map-approved': {

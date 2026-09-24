@@ -11,6 +11,8 @@
 // everywhere, so that swap-in replaces the spinner block below. Component
 // copied verbatim from NgMapDealFilled.tsx (same pattern already used there).
 
+import StatusIsland from '../StatusIsland';
+
 const assetPathPrefix = "/figma-assets";
 const imgGroup1739327574 = `${assetPathPrefix}/6a28a.svg`;
 const imgGroup1739327575 = `${assetPathPrefix}/1d6bf.svg`;
@@ -245,40 +247,6 @@ function Spinner({ className, spinner = "1" }: SpinnerProps) {
   );
 }
 
-type StatusIslandProps = {
-  className?: string;
-  type?: "new";
-};
-
-function StatusIsland({ className, type = "new" }: StatusIslandProps) {
-  return (
-    <div className={className || "bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] w-[365px]"} data-node-id="367:72963">
-      <p className="[word-break:break-word] font-['Inter'] font-semibold font-semibold leading-[normal] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-text\/primary,#131221)] whitespace-nowrap" data-node-id="367:72964">
-        Status
-      </p>
-      <div className="content-stretch flex items-center overflow-clip relative shrink-0" data-node-id="367:72965" data-name="Frame">
-        <div className="bg-[var(--\(new\)-neutral\/opacity-dark\/5,rgba(19,18,33,0.05))] content-stretch flex h-[24px] items-center justify-center min-w-[24px] overflow-clip relative rounded-[var(--chip\/radius\/medium,999px)] shrink-0" data-node-id="367:72966" data-name="chip">
-          <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:72966;814:3321" data-name="parent-content">
-            <div className="relative shrink-0 size-[16px]" data-node-id="I367:72966;814:3322" data-name="icon">
-              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
-            </div>
-            <div className="content-stretch flex items-center pb-px px-[var(--chip\/gap\/medium,2px)] relative shrink-0" data-node-id="I367:72966;814:3323" data-name="padding-text">
-              <p className="[word-break:break-word] font-['Inter'] font-regular font-normal leading-[20px] not-italic relative shrink-0 text-[13px] text-[color:var(--\(new\)-neutral\/solid\/700,#605f6b)] whitespace-nowrap" data-node-id="I367:72966;814:3324">
-                New
-              </p>
-            </div>
-          </div>
-          <div className="content-stretch flex items-center px-[var(--chip\/padding\/medium,6px)] relative shrink-0" data-node-id="I367:72966;814:3328" data-name="remove">
-            <div className="relative shrink-0 size-[16px]" data-node-id="I367:72966;814:3329" data-name="icon">
-              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon1} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 type ToggleProps = {
   className?: string;
   active?: "true";
@@ -480,7 +448,7 @@ export default function NgOverviewLater() {
       </div>
       <div className="absolute content-stretch flex flex-col gap-[10px] h-[937px] items-start left-[1133px] top-[46px] w-[373px]" data-node-id="367:175674" data-name="Summary panel">
         <LegacyTogglePill className="bg-[var(--\(new\)-neutral\/solid\/50,white)] border border-[#e5e5eb] border-solid content-stretch drop-shadow-[0px_2px_4px_rgba(18,18,33,0.06)] flex gap-[10px] items-center justify-center px-[14px] py-[8px] relative rounded-[999px] shrink-0 w-full" />
-        <StatusIsland className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" />
+        <StatusIsland type="new" className="bg-white border border-[#e5e5eb] border-solid content-stretch flex items-center justify-between overflow-clip px-[16px] py-[14px] relative rounded-[12px] shadow-[0px_2px_8px_0px_rgba(13,13,20,0.06)] shrink-0 w-full" />
         <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-node-id="367:175677" data-name="Summary Panel — MASTER">
           <div className="bg-white border border-[#e5e5eb] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[12px] shrink-0 w-full" data-node-id="367:175678" data-name="panel">
             <div className="content-stretch flex flex-col items-start overflow-clip pb-[10px] pt-[12px] px-[10px] relative shrink-0 w-full" data-node-id="367:175679" data-name="header">
