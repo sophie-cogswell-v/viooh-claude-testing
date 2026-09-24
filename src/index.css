@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* Tokens exposed to Tailwind arbitrary values as CSS custom properties.
+   Every one of these mirrors a Figma variable used by the frames pasted
+   in from get_design_context — do not rename without regenerating those. */
+@theme {
+  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  color: #131221;
+  background: #F3F3F5;
+
+  /* Figma variable tokens the pasted code references verbatim */
+  --new-primary-solid-100: #EFEDFF;
+  --new-primary-solid-200: #DED9FF;
+  --new-primary-solid-500: #6858F0;
+  --new-primary-solid-600: #4B37E8;
+  --new-primary-solid-700: #272199;
+  --new-primary-alpha-100: rgba(75,55,232,0.08);
+
+  --new-neutral-solid-100: #F7F6FB;
+  --new-neutral-solid-200: #F2F1F7;
+  --new-neutral-solid-300: #E5E3EE;
+  --new-neutral-solid-400: #C7C5D6;
+  --new-neutral-solid-500: #9391A5;
+  --new-neutral-solid-600: #6B6980;
+  --new-neutral-solid-700: #42414E;
+  --new-neutral-solid-800: #2A2940;
+  --new-neutral-solid-900: #131221;
+
+  --new-success-solid-500: #1F8A4C;
+  --new-success-solid-600: #0E7E4E;
+  --new-success-solid-100: #DEF5E9;
+
+  --new-warning-solid-500: #B87700;
+  --new-warning-solid-100: #FFF3D9;
+
+  --new-danger-solid-500: #C43C3C;
+  --new-danger-solid-100: #FDE8E8;
+
+  --toggle-size-medium: 16px;
+
+  --elevation-sm-x: 0px;
+  --elevation-sm-y: 1px;
+  --elevation-sm-blur: 2px;
+  --elevation-sm-color: rgba(15,14,46,0.06);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; -webkit-font-smoothing: antialiased; }
+
+/* Frame-swap crossfade (see withViewTransition in App.tsx). Subtle — a quick
+   fade + tiny scale/lift, not a slide-show cut and not a flashy effect. */
+::view-transition-group(stage) { animation-duration: 240ms; }
+::view-transition-old(stage),
+::view-transition-new(stage) {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
+}
+::view-transition-old(stage) { animation-name: stage-out; }
+::view-transition-new(stage) { animation-name: stage-in; }
+
+@keyframes stage-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.99); }
+}
+@keyframes stage-in {
+  from { opacity: 0; transform: scale(1.008) translateY(3px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Status dropdown menus ("menu list" nodes pasted from Figma) pop open
+   instead of just appearing with the rest of the frame — the little bit of
+   physicality that reads as "real menu" instead of "next screenshot".
+   Plays once per mount, which lines up with how these frames are swapped in. */
+.menu-pop-in {
+  transform-origin: top right;
+  animation: menu-pop-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes menu-pop-in {
+  from { opacity: 0; transform: scale(0.92) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-pop-in { animation: none; }
+}
+
+/* Field-editor floating panels (the "secondary panel (base)" cards Figma
+   pastes for Schedule/Environment/DSP/CPM/Location — 24 frames) — same idea
+   as the dropdown pop, slightly bigger/softer since these are full editor
+   cards, not a small menu. This single class covers every one of them
+   because Figma reuses the same panel component everywhere. */
+.panel-pop-in {
+  transform-origin: top center;
+  animation: panel-pop-in 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes panel-pop-in {
+  from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel-pop-in { animation: none; }
+}
+
+/* Loading spinner (the "Checking availability" screens) — Figma exports a
+   single frozen-mid-spin frame of the arc icon (rotate-[74.66deg], a static
+   angle) since it can't bake continuous motion into a static paste. Spin it
+   for real instead of leaving it parked at one angle. */
+.spinner-spin {
+  animation: spinner-spin 900ms linear infinite;
+  transform-origin: center;
+}
+@keyframes spinner-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Skeleton loading rows (Figma's own placeholder-pill design, marked
+   data-name="Rectangle") — a soft pulse so the loading state reads as
+   "fetching" rather than a plain gray screenshot. Staggered per row via
+   nth-child so the whole panel doesn't blink in lockstep. */
+.skeleton-shimmer [data-name="Rectangle"] {
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+.skeleton-shimmer [data-name="Rectangle"]:nth-child(3n+1) { animation-delay: 0ms; }
+.skeleton-shimmer [data-name="Rectangle"]:nth-child(3n+2) { animation-delay: 150ms; }
+.skeleton-shimmer [data-name="Rectangle"]:nth-child(3n)   { animation-delay: 300ms; }
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner-spin { animation: none; }
+  .skeleton-shimmer [data-name="Rectangle"] { animation: none; }
+}
+
+/* Hotspot hover affordance (see useFrameClicks) — a thin accent ring + soft
+   glow, so hovering anything actually clickable reads as clickable instead
+   of the prototype feeling like a static image. Deliberately an OUTSET
+   box-shadow, not inset: almost every button/card in these pasted frames
+   has an `aria-hidden` absolutely-positioned fill as a child (Figma's own
+   layering), which paints over an inset shadow and hides it completely.
+   Outset paints outside the border box, past that overlay, every time. */
+.proto-hotspot {
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+  box-shadow:
+    0 0 0 1.5px rgba(75, 55, 232, 0.45),
+    0 2px 10px rgba(75, 55, 232, 0.18);
+}

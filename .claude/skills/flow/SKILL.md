@@ -33,7 +33,7 @@ what you built against the source. Optimise everything for the next iteration.
 ## The loop
 
 ```
-DESIGN → UNDERSTAND → MAP → PROTOTYPE → VERIFY → REFINE
+DESIGN → UNDERSTAND → CLARIFY → MAP → PROTOTYPE → VERIFY → REFINE
 ```
 
 Never jump straight from a Figma URL to code. For anything beyond a single simple
@@ -42,15 +42,37 @@ screen, build an internal **experience model** first (see `workflow.md`).
 1. **UNDERSTAND** — read the design and the whole journey. Build an *experience
    inventory* (screens, journeys, navigation, variables, component states,
    overlays, modals, branches, shared components). See `workflow.md`.
-2. **MAP** — map every Figma element to a component via **REUSE → EXTEND →
+2. **CLARIFY** — once the inventory surfaces real gaps (unclear branch logic,
+   missing states, ambiguous responsive behaviour, unstated purpose/audience),
+   ask the user targeted questions before building. If the user already gave
+   project context in the prompt, use it instead of asking again. See
+   `workflow.md`.
+3. **MAP** — map every Figma element to a component via **REUSE → EXTEND →
    CREATE**, against VIOOH LENS and any components already in the prototype. See
    `component-mapping.md`.
-3. **PROTOTYPE** — build in React + TypeScript, structured for fast iteration.
+4. **PROTOTYPE** — build in React + TypeScript, structured for fast iteration.
    See `workflow.md`.
-4. **VERIFY** — run it, screenshot it, compare against the Figma source, fix the
+5. **VERIFY** — run it, screenshot it, compare against the Figma source, fix the
    discrepancies. Compiling is not "done". See `workflow.md` → Visual QA.
-5. **REFINE** — make the smallest correct change; integrate new screens into the
+6. **REFINE** — make the smallest correct change; integrate new screens into the
    existing experience graph rather than bolting on isolated pages.
+
+## Non-negotiables
+
+1. **A live product, not a slideshow.** The output is a **responsive, truly
+   interactive** prototype — every button, input, tab, and card must actually
+   do what its Figma reaction says, with real `:hover`/`:focus`/`:active`/
+   `:disabled` states, real layout reflow, motion that feels polished but
+   never adds latency, and state that survives navigation. It must **never**
+   degrade into a deck of frozen screenshots flipped with prev/next arrows.
+   See `workflow.md` → "Responsive by default" — the most common way a build
+   silently fails this skill's goal even while "looking right".
+2. **Fast, and light on tokens.** The entire point is to remove the wait
+   between a Figma flow and something clickable to show — a faithful build
+   that takes forever or burns huge context has only moved the friction.
+   Fetch minimally, derive near-duplicates instead of re-fetching them, reuse
+   before building, and don't re-derive what's already written down. See
+   `workflow.md` → "Efficiency".
 
 ## Sources of truth
 

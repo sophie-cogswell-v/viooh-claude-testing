@@ -13,12 +13,12 @@ names below are the stable part.
 | Tool | Use it for | Notes / gotchas |
 |---|---|---|
 | `whoami` | confirm auth + debug rate limits | returns handle, email, org/team seats. Run first if reads fail or you are throttled. |
-| `get_metadata` | structure of a page/node (ids, types, names, x/y/w/h) | no `nodeId` ⇒ lists top-level pages. Then drill in by page/node id. Big pages return large XML — drill, don't dump. Metadata only; it cannot implement a design. |
+| `get_metadata` | structure of a page/node (ids, types, names, x/y/w/h) | no `nodeId` ⇒ lists top-level pages. Then drill in by page/node id. Big pages return large XML — drill, don't dump. Metadata only; it cannot implement a design. **`x`/`y` are relative to the immediate parent, not canvas-absolute** — a node nested three frames deep does not carry the sum of its ancestors' offsets, only its own frame's. Don't do "canvas-absolute" arithmetic across sibling subtrees assuming otherwise; match nodes by name/structure or diff against a sibling at the same nesting depth instead. |
 | `get_screenshot` | see a node/page rendered | returns a short-lived PNG URL + curl line (treat the URL like a secret). `maxDimension` caps the long edge (default 1024). Prefer URL+curl over base64 to save tokens; download then read the file. |
 | `get_variable_defs` | resolved variable values for a node | needs a concrete `nodeId`. Returns e.g. `{'color/primary': '#…'}`. |
 | `get_libraries` | which libraries a file uses / can add | returns subscribed + available libraries with `libraryKey`s. This is how the component/variable split in `config.md` was found. |
 | `search_design_system` | find components / variables / styles | see the batch-clamp gotcha below. Fuzzy match, **not** an enumerator. |
-| `get_design_context` | the primary design→code read: reference code + screenshot + asset URLs for a node | **Load the `figma-design-to-code` skill first** (the tool refuses good output otherwise). It returns Figma's own React/Tailwind guess — adapt it to LENS + the target repo; never paste it verbatim. |
+| `get_design_context` | the primary design→code read: reference code + screenshot + asset URLs for a node | **Load the `figma-design-to-code` skill first** (the tool refuses good output otherwise). It returns Figma's own React/Tailwind guess — adapt it to LENS + the target repo; never paste it verbatim. On a large/content-heavy node it can silently return a **metadata-shaped fallback** instead of code — no error, but the payload is XML-ish `<frame id=… name=… x=… width=…>` tags with no `<p>` text content, not JSX. Grepping that for expected labels will report false negatives (they're missing because it's the wrong payload, not because the design lacks them). Confirm you actually got code (look for `export default function` / JSX tags) before trusting a "not found"; retry the same call with `forceCode: true` + `excludeScreenshot: true` on a narrower child node if you got metadata instead. |
 
 ### `search_design_system` — the clamp
 
@@ -51,6 +51,14 @@ set (~60 files for a 13-screen flow). The `component-mapping.md` note carries th
 When a `get_design_context` result is too large to return inline, the server saves
 it to a file and returns the path — extract the code from that file with a script
 (`import-frame.mjs` pattern) instead of re-reading it into context.
+
+**That save-to-file path has the same ~100k-character/~25k-token cap as the
+inline path — it is not a way around the limit, only a way to avoid paying for
+it in your own context.** A large/content-heavy frame can come back silently
+truncated mid-attribute even when the tool reports success and a file path.
+Sanity-check the persisted file's size after import; see `workflow.md` §3b for
+the recovery move (splice the missing shared-chrome tail from another already-
+complete frame rather than re-fetching the same oversized node).
 
 ## The naming split you will hit (verified)
 

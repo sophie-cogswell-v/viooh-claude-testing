@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "deal-flow-prototype",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-l", "4173", "."],
+      "port": 4173
+    },
+    {
+      "name": "deal-flow-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "--host"],
+      "port": 5180,
+      "autoPort": true
+    }
+  ]
+}

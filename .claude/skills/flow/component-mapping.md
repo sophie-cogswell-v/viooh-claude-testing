@@ -68,6 +68,15 @@ argument.
   characteristic VTM mistake.
 - Do **not** flatten Figma component *instances* into anonymous divs — a repeated
   instance in Figma is a signal to make (or reuse) one prototype component.
+- Do **not** treat a prior build's field/section list as REUSE just because the
+  names or geometry line up with today's node. A matching name is a hypothesis
+  to verify (fresh `get_metadata`/`get_design_context` on the current node), not
+  a fact to carry forward. An earlier session's own hedge — "included for
+  consistency", "extended beyond what's captured" — means that content was
+  *never confirmed against source* the first time either; reusing it silently
+  launders an old invention into the new build as if it were verified. Confirm
+  it fresh, every time you reuse across sessions or across a different node in
+  the same file.
 
 ## Recording the map
 
